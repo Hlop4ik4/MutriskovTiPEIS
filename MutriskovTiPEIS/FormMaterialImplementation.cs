@@ -172,7 +172,7 @@ namespace MutriskovTiPEIS
                 try
                 {
                     int count = Convert.ToInt32(textBoxCount.Text);
-                    string selectCmd = "select Цена from Materials";
+                    string selectCmd = "select Цена from Materials where Id=" + Convert.ToInt32(comboBoxMaterial.SelectedValue);
                     var price = selectValue(ConnectionString, selectCmd);
                     textBoxSum.Text = Math.Round((count * Convert.ToDecimal(price)), 2, MidpointRounding.AwayFromZero).ToString();
                 }
