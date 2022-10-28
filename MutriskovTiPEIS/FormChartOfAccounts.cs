@@ -41,6 +41,7 @@ namespace MutriskovTiPEIS
             dataAdapter.Fill(ds);
             dataGridView.DataSource = ds;
             dataGridView.DataMember = ds.Tables[0].ToString();
+            dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             connect.Close();
         }
     }

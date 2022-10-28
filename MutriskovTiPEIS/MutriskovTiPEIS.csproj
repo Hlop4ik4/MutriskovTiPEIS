@@ -65,11 +65,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="FormBuyer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FormBuyer.Designer.cs">
+      <DependentUpon>FormBuyer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="FormChartOfAccounts.cs">
       <SubType>Form</SubType>
@@ -77,13 +83,52 @@
     <Compile Include="FormChartOfAccounts.Designer.cs">
       <DependentUpon>FormChartOfAccounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMaterial.Designer.cs">
+      <DependentUpon>FormMaterial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMaterialImplementation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMaterialImplementation.Designer.cs">
+      <DependentUpon>FormMaterialImplementation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMOLs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMOLs.Designer.cs">
+      <DependentUpon>FormMOLs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormStorage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStorage.Designer.cs">
+      <DependentUpon>FormStorage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FormBuyer.resx">
+      <DependentUpon>FormBuyer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormChartOfAccounts.resx">
       <DependentUpon>FormChartOfAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMaterial.resx">
+      <DependentUpon>FormMaterial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMaterialImplementation.resx">
+      <DependentUpon>FormMaterialImplementation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMOLs.resx">
+      <DependentUpon>FormMOLs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStorage.resx">
+      <DependentUpon>FormStorage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
