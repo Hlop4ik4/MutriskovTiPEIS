@@ -107,6 +107,12 @@
     <Compile Include="FormStorage.Designer.cs">
       <DependentUpon>FormStorage.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormTransactions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTransactions.Designer.cs">
+      <DependentUpon>FormTransactions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormBuyer.resx">
@@ -129,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormStorage.resx">
       <DependentUpon>FormStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTransactions.resx">
+      <DependentUpon>FormTransactions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

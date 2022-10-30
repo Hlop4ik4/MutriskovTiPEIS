@@ -53,5 +53,11 @@ namespace MutriskovTiPEIS
             var form = new FormMaterialImplementation();
             form.ShowDialog();
         }
+
+        private void transactionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormTransactions();
+            form.ShowDialog();
+        }
     }
 }

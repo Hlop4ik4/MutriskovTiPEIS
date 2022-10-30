@@ -150,6 +150,16 @@ namespace MutriskovTiPEIS
             string txtSQLQuery = "insert into MaterialImplementation (Id, [Id МОЛа], [Id материала], [Id склада], [Id покупателя], Количество, Сумма, [Дата операции]) values (" + (Convert.ToInt32(maxValue) + 1) + ", " + Convert.ToInt32(comboBoxMOL.SelectedValue) + ", " + Convert.ToInt32(comboBoxMaterial.SelectedValue) + ", " + Convert.ToInt32(comboBoxStorage.SelectedValue) + ", " + Convert.ToInt32(comboBoxBuyer.SelectedValue) + ", " + Convert.ToInt32(textBoxCount.Text) + ", '" + Convert.ToDecimal(textBoxSum.Text) + "', @date)";
 
             ExecuteQuery(txtSQLQuery);
+
+            selectCommand = "select MAX(id) from Transactions";
+            var maxValT = selectValue(ConnectionString, selectCommand);
+            if (Convert.ToString(maxValT) == "")
+                maxValT = 0;
+
+            txtSQLQuery = "insert into Transactions(id, [id операции реализации], [Счет дебет], [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма, Дата) values (" + (Convert.ToInt32(maxValT) + 1) + ", " + (Convert.ToInt32(maxValue) + 1) + ", " + Convert.ToInt32(selectValue(ConnectionString, "Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'")) + ", '', '', '', " + Convert.ToInt32(selectValue(ConnectionString, "Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'")) + ", '', '', '', " + Convert.ToInt32(textBoxCount.Text) + ", '" + Convert.ToDecimal(textBoxSum.Text) + "', @date)";
+
+            ExecuteQuery(txtSQLQuery);
+
             selectCommand = "select * from MaterialImplementation";
             refreshForm(ConnectionString, selectCommand);
             textBoxCount.Text = "";

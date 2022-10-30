@@ -82,6 +82,7 @@ namespace MutriskovTiPEIS
             string selectCommand = "Select * from Materials";
             SelectTable(ConnectionString, selectCommand);
         }
+
         private void SelectTable(string conString, string selectCmd)
         {
             SQLiteConnection connect = new SQLiteConnection(conString);
