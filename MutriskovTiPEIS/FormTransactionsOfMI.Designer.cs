@@ -1,6 +1,6 @@
 ﻿namespace MutriskovTiPEIS
 {
-    partial class FormTransactions
+    partial class FormTransactionsOfMI
     {
         /// <summary>
         /// Required designer variable.

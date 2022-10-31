@@ -107,6 +107,12 @@
     <Compile Include="FormStorage.Designer.cs">
       <DependentUpon>FormStorage.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormTransactionsOfMI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTransactionsOfMI.Designer.cs">
+      <DependentUpon>FormTransactionsOfMI.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormTransactions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormStorage.resx">
       <DependentUpon>FormStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTransactionsOfMI.resx">
+      <DependentUpon>FormTransactionsOfMI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTransactions.resx">
       <DependentUpon>FormTransactions.cs</DependentUpon>

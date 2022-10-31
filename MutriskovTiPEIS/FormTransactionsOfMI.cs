@@ -12,22 +12,24 @@ using System.IO;
 
 namespace MutriskovTiPEIS
 {
-    public partial class FormTransactions : Form
+    public partial class FormTransactionsOfMI : Form
     {
         private SQLiteConnection sql_con;
         private SQLiteCommand sql_cmd;
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
+        private int id;
 
-        public FormTransactions()
+        public FormTransactionsOfMI(int id)
         {
             InitializeComponent();
+            this.id = id;
         }
 
         private void FormTransactions_Load(object sender, EventArgs e)
         {
             ConnectionString = @"Data Source=" + sPath + ";New=False;Version=3";
-            string selectCommand = "Select * from Transactions";
+            string selectCommand = "Select * from Transactions where [id операции реализации]=" + id;
             SelectTable(ConnectionString, selectCommand);
         }
 
@@ -48,7 +50,7 @@ namespace MutriskovTiPEIS
         {
             if(dateTimePickerFrom.Value <= dateTimePickerTo.Value)
             {
-                string selectCmd = "Select * from Transactions where Дата between '" + dateTimePickerFrom.Value.Date.ToString("yyyy-MM-dd") + "' and '" + dateTimePickerTo.Value.Date.ToString("yyyy-MM-dd") + "'";
+                string selectCmd = "Select * from Transactions where Дата between '" + dateTimePickerFrom.Value.Date.ToString("yyyy-MM-dd") + "' and '" + dateTimePickerTo.Value.Date.ToString("yyyy-MM-dd") + "' and [id операции реализации] = " + id;
                 SelectTable(ConnectionString, selectCmd);
             }
             else

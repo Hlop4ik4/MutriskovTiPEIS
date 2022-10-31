@@ -138,40 +138,54 @@ namespace MutriskovTiPEIS
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            string selectCommand = "select MAX(Id) from MaterialImplementation";
-            var maxValue = selectValue(ConnectionString, selectCommand);
-            if (Convert.ToString(maxValue) == "")
-                maxValue = 0;
-            if(comboBoxBuyer.SelectedItem == null || comboBoxMaterial.SelectedItem == null || comboBoxMOL.SelectedItem == null || comboBoxStorage.SelectedItem == null || String.IsNullOrEmpty(textBoxCount.Text)) 
+            try
             {
-                MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                string selectCommand = "select MAX(Id) from MaterialImplementation";
+                var maxValue = selectValue(ConnectionString, selectCommand);
+                if (Convert.ToString(maxValue) == "")
+                    maxValue = 0;
+                if (comboBoxBuyer.SelectedItem == null || comboBoxMaterial.SelectedItem == null || comboBoxMOL.SelectedItem == null || comboBoxStorage.SelectedItem == null || String.IsNullOrEmpty(textBoxCount.Text))
+                {
+                    MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                string txtSQLQuery = "insert into MaterialImplementation (Id, [Id МОЛа], [Id материала], [Id склада], [Id покупателя], Количество, Сумма, [Дата операции]) values (" + (Convert.ToInt32(maxValue) + 1) + ", " + Convert.ToInt32(comboBoxMOL.SelectedValue) + ", " + Convert.ToInt32(comboBoxMaterial.SelectedValue) + ", " + Convert.ToInt32(comboBoxStorage.SelectedValue) + ", " + Convert.ToInt32(comboBoxBuyer.SelectedValue) + ", " + Convert.ToInt32(textBoxCount.Text) + ", '" + Convert.ToDecimal(textBoxSum.Text) + "', @date)";
+
+                ExecuteQuery(txtSQLQuery);
+
+                selectCommand = "select MAX(id) from Transactions";
+                var maxValT = selectValue(ConnectionString, selectCommand);
+                if (Convert.ToString(maxValT) == "")
+                    maxValT = 0;
+
+                txtSQLQuery = "insert into Transactions(id, [id операции реализации], [Счет дебет], [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма, Дата) values (" + (Convert.ToInt32(maxValT) + 1) + ", " + (Convert.ToInt32(maxValue) + 1) + ", (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '10'), (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '10'), " + Convert.ToInt32(textBoxCount.Text) + ", '" + Convert.ToDecimal(textBoxSum.Text) + "', @date)";
+
+                ExecuteQuery(txtSQLQuery);
+
+                selectCommand = "select * from MaterialImplementation";
+                refreshForm(ConnectionString, selectCommand);
+                textBoxCount.Clear();
+                textBoxSum.Text = "";
+                comboBoxStorage.SelectedItem = null;
+                comboBoxBuyer.SelectedItem = null;
+                comboBoxMaterial.SelectedItem = null;
+                comboBoxMOL.SelectedItem = null;
             }
-            string txtSQLQuery = "insert into MaterialImplementation (Id, [Id МОЛа], [Id материала], [Id склада], [Id покупателя], Количество, Сумма, [Дата операции]) values (" + (Convert.ToInt32(maxValue) + 1) + ", " + Convert.ToInt32(comboBoxMOL.SelectedValue) + ", " + Convert.ToInt32(comboBoxMaterial.SelectedValue) + ", " + Convert.ToInt32(comboBoxStorage.SelectedValue) + ", " + Convert.ToInt32(comboBoxBuyer.SelectedValue) + ", " + Convert.ToInt32(textBoxCount.Text) + ", '" + Convert.ToDecimal(textBoxSum.Text) + "', @date)";
-
-            ExecuteQuery(txtSQLQuery);
-
-            selectCommand = "select MAX(id) from Transactions";
-            var maxValT = selectValue(ConnectionString, selectCommand);
-            if (Convert.ToString(maxValT) == "")
-                maxValT = 0;
-
-            txtSQLQuery = "insert into Transactions(id, [id операции реализации], [Счет дебет], [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма, Дата) values (" + (Convert.ToInt32(maxValT) + 1) + ", " + (Convert.ToInt32(maxValue) + 1) + ", " + Convert.ToInt32(selectValue(ConnectionString, "Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'")) + ", '', '', '', " + Convert.ToInt32(selectValue(ConnectionString, "Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'")) + ", '', '', '', " + Convert.ToInt32(textBoxCount.Text) + ", '" + Convert.ToDecimal(textBoxSum.Text) + "', @date)";
-
-            ExecuteQuery(txtSQLQuery);
-
-            selectCommand = "select * from MaterialImplementation";
-            refreshForm(ConnectionString, selectCommand);
-            textBoxCount.Text = "";
-            textBoxSum.Text = "";
-            comboBoxStorage.SelectedItem = null;
-            comboBoxBuyer.SelectedItem = null;
-            comboBoxMaterial.SelectedItem = null;
-            comboBoxMOL.SelectedItem = null;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void textBoxCount_TextChanged(object sender, EventArgs e)
         {
+            int count;
+            Int32.TryParse(textBoxCount.Text, out count);
+            if (count < 0)
+            {
+                MessageBox.Show("Количество не должно быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             CalcSum();
         }
 
@@ -203,6 +217,8 @@ namespace MutriskovTiPEIS
             int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
             string valueId = dataGridView[0, CurrentRow].Value.ToString();
             string selectCommand = "delete from MaterialImplementation where Id=" + valueId;
+            changeValue(ConnectionString, selectCommand);
+            selectCommand = "delete from Transactions where [id операции реализации]=" + valueId;
             changeValue(ConnectionString, selectCommand);
             selectCommand = "select * from MaterialImplementation";
             refreshForm(ConnectionString, selectCommand);
@@ -241,6 +257,8 @@ namespace MutriskovTiPEIS
 
                 string selectCommand = "update MaterialImplementation set [Id МОЛа]=" + changeMOLId + ", [Id материала]=" + changeMaterialId + ", [Id склада]=" + changeStorageId +", [Id покупателя]=" + changeBuyerId + ", Количество=" + changeCount + ", Сумма='" + changeSum + "', [Дата операции]=@date where Id=" + valueId;
                 changeValue(ConnectionString, selectCommand);
+                selectCommand = "update Transactions set Количество=" + changeCount + ", Сумма='" + changeSum + "', Дата= @date where [id операции реализации]=" + valueId;
+                changeValue(ConnectionString, selectCommand);
                 selectCommand = "select * from MaterialImplementation";
                 refreshForm(ConnectionString, selectCommand);
                 textBoxCount.Text = "";
@@ -273,6 +291,19 @@ namespace MutriskovTiPEIS
             comboBoxMOL.SelectedValue = MOLId;
             comboBoxStorage.SelectedValue = storageId;
             dateTimePicker1.Value = date;
+        }
+
+        private void buttonTransactions_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.SelectedCells.Count == 0)
+            {
+                MessageBox.Show("Для просмотра выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
+            int id = Convert.ToInt32(dataGridView[0, CurrentRow].Value);
+            var form = new FormTransactionsOfMI(id);
+            form.Show();
         }
     }
 }

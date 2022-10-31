@@ -46,6 +46,7 @@
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.labelMaterial = new System.Windows.Forms.Label();
             this.comboBoxMaterial = new System.Windows.Forms.ComboBox();
+            this.buttonTransactions = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -125,7 +126,7 @@
             // 
             // buttonChange
             // 
-            this.buttonChange.Location = new System.Drawing.Point(850, 153);
+            this.buttonChange.Location = new System.Drawing.Point(850, 154);
             this.buttonChange.Name = "buttonChange";
             this.buttonChange.Size = new System.Drawing.Size(75, 23);
             this.buttonChange.TabIndex = 0;
@@ -210,11 +211,21 @@
             this.comboBoxMaterial.Size = new System.Drawing.Size(143, 21);
             this.comboBoxMaterial.TabIndex = 5;
             // 
+            // buttonTransactions
+            // 
+            this.buttonTransactions.Location = new System.Drawing.Point(861, 193);
+            this.buttonTransactions.Name = "buttonTransactions";
+            this.buttonTransactions.Size = new System.Drawing.Size(86, 43);
+            this.buttonTransactions.TabIndex = 0;
+            this.buttonTransactions.Text = "Посмотреть проводки";
+            this.buttonTransactions.UseVisualStyleBackColor = true;
+            this.buttonTransactions.Click += new System.EventHandler(this.buttonTransactions_Click);
+            // 
             // FormMaterialImplementation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(931, 450);
+            this.ClientSize = new System.Drawing.Size(964, 450);
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.comboBoxBuyer);
             this.Controls.Add(this.comboBoxMaterial);
@@ -230,6 +241,7 @@
             this.Controls.Add(this.labelMaterial);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.buttonTransactions);
             this.Controls.Add(this.buttonChange);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonAdd);
@@ -262,5 +274,6 @@
         private System.Windows.Forms.ComboBox comboBoxStorage;
         private System.Windows.Forms.Label labelMaterial;
         private System.Windows.Forms.ComboBox comboBoxMaterial;
+        private System.Windows.Forms.Button buttonTransactions;
     }
 }
