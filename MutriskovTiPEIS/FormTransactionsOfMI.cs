@@ -31,6 +31,7 @@ namespace MutriskovTiPEIS
             ConnectionString = @"Data Source=" + sPath + ";New=False;Version=3";
             string selectCommand = "Select * from Transactions where [id операции реализации]=" + id;
             SelectTable(ConnectionString, selectCommand);
+            this.Text = "Журнал проводок операции " + id;
         }
 
         private void SelectTable(string conString, string selectCmd)
