@@ -158,7 +158,10 @@ namespace MutriskovTiPEIS
                 if (Convert.ToString(maxValT) == "")
                     maxValT = 0;
 
-                txtSQLQuery = "insert into Transactions(id, [id операции реализации], [Счет дебет], [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма, Дата) values (" + (Convert.ToInt32(maxValT) + 1) + ", " + (Convert.ToInt32(maxValue) + 1) + ", (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '10'), (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '10'), " + Convert.ToInt32(textBoxCount.Text) + ", '" + Convert.ToDecimal(textBoxSum.Text) + "', @date)";
+                txtSQLQuery = "insert into Transactions(id, [id операции реализации], [Счет дебет], [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма, Дата)" +
+                    " values" +
+                    " (" + (Convert.ToInt32(maxValT) + 1) + ", " + (Convert.ToInt32(maxValue) + 1) + ", (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '10'), (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '10'), " + Convert.ToInt32(textBoxCount.Text) + ", '" + Convert.ToDecimal(textBoxSum.Text) + "', @date)," +
+                    " ()";
 
                 ExecuteQuery(txtSQLQuery);
 
