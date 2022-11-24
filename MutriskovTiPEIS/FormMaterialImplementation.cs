@@ -26,7 +26,7 @@ namespace MutriskovTiPEIS
         private void FormMaterialImplementation_Load(object sender, EventArgs e)
         {
             ConnectionString = @"Data Source=" + sPath + ";New=False;Version=3";
-            string selectCommand = "Select * from MaterialImplementation";
+            string selectCommand = "select MI.id, (select ФИО from MOL where MOL.id=MI.'Id МОЛа') as МОЛ, (select Наименование from Materials as M where M.id = MI.'Id материала') as Материал, (select Наименование from Storages as S where S.id = MI.'Id склада') as Склад, (select ФИО from Buyer as B where B.id = MI.'Id покупателя') as Покупатель, Количество, Сумма, [Дата операции] from MaterialImplementation as MI";
             SelectTable(ConnectionString, selectCommand);
         }
 
@@ -38,15 +38,15 @@ namespace MutriskovTiPEIS
             DataSet ds = new DataSet();
             dataAdapter.Fill(ds, "MI");
             dataGridView.DataSource = ds.Tables["MI"];
-            dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             selectCmd = "Select * from Materials";
             dataAdapter = new SQLiteDataAdapter(selectCmd, connect);
             dataAdapter.Fill(ds, "Materials");
             if(ds.Tables.Count != 0)
             {
                 comboBoxMaterial.DataSource = ds.Tables["Materials"];
-                comboBoxMaterial.DisplayMember = ds.Tables["Materials"].Columns["Наименование"].ColumnName;
-                comboBoxMaterial.ValueMember = ds.Tables["Materials"].Columns["Id"].ColumnName;
+                comboBoxMaterial.DisplayMember = "Наименование";
+                comboBoxMaterial.ValueMember = "Id";
                 comboBoxMaterial.SelectedItem = null;
             }
             selectCmd = "Select * from Buyer";
@@ -91,7 +91,7 @@ namespace MutriskovTiPEIS
             trans = connect.BeginTransaction();
             cmd.Connection = connect;
             cmd.CommandText = selectCmd;
-            cmd.Parameters.Add("@date", DbType.Date).Value = dateTimePicker1.Value.Date;
+            cmd.Parameters.Add("@date", DbType.DateTime).Value = dateTimePicker1.Value;
             cmd.ExecuteNonQuery();
             trans.Commit();
             connect.Close();
@@ -117,7 +117,7 @@ namespace MutriskovTiPEIS
             sql_con = new SQLiteConnection(ConnectionString + ";Compress=True;");
             sql_cmd = sql_con.CreateCommand();
             sql_cmd.CommandText = Query;
-            sql_cmd.Parameters.Add("@date", DbType.Date).Value = dateTimePicker1.Value.Date;
+            sql_cmd.Parameters.Add("@date", DbType.DateTime).Value = dateTimePicker1.Value;
             sql_con.Open();
             sql_cmd.ExecuteNonQuery();
             sql_con.Close();
@@ -149,23 +149,35 @@ namespace MutriskovTiPEIS
                     MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                if (Convert.ToInt32(textBoxCount.Text) > Convert.ToInt32(labelRemains.Text))
+                {
+                    MessageBox.Show("Количество не может быть больше остатков", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 string txtSQLQuery = "insert into MaterialImplementation (Id, [Id МОЛа], [Id материала], [Id склада], [Id покупателя], Количество, Сумма, [Дата операции]) values (" + (Convert.ToInt32(maxValue) + 1) + ", " + Convert.ToInt32(comboBoxMOL.SelectedValue) + ", " + Convert.ToInt32(comboBoxMaterial.SelectedValue) + ", " + Convert.ToInt32(comboBoxStorage.SelectedValue) + ", " + Convert.ToInt32(comboBoxBuyer.SelectedValue) + ", " + Convert.ToInt32(textBoxCount.Text) + ", '" + Convert.ToDecimal(textBoxSum.Text) + "', @date)";
 
                 ExecuteQuery(txtSQLQuery);
+
+                selectCommand = "update Materials set Количество = " + (Convert.ToInt32(labelRemains.Text) - Convert.ToInt32(textBoxCount.Text)) + " where id=" + comboBoxMaterial.SelectedValue;
+                changeValue(ConnectionString, selectCommand);
 
                 selectCommand = "select MAX(id) from Transactions";
                 var maxValT = selectValue(ConnectionString, selectCommand);
                 if (Convert.ToString(maxValT) == "")
                     maxValT = 0;
 
+                decimal taxes = Convert.ToDecimal(selectValue(ConnectionString, "select [Цена продажная] from Materials where id = " + comboBoxMaterial.SelectedValue.ToString())) * Convert.ToInt32(textBoxCount.Text) * 0.15m;
+
                 txtSQLQuery = "insert into Transactions(id, [id операции реализации], [Счет дебет], [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма, Дата)" +
                     " values" +
-                    " (" + (Convert.ToInt32(maxValT) + 1) + ", " + (Convert.ToInt32(maxValue) + 1) + ", (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '10'), (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '10'), " + Convert.ToInt32(textBoxCount.Text) + ", '" + Convert.ToDecimal(textBoxSum.Text) + "', @date)," +
-                    " ()";
+                    " (" + (Convert.ToInt32(maxValT) + 1) + ", " + (Convert.ToInt32(maxValue) + 1) + ", (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '62'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '62'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '62'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '62'), (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '91'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '91'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '91'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '91'), " + Convert.ToInt32(textBoxCount.Text) + ", '" + Math.Round((Convert.ToDecimal(selectValue(ConnectionString, "select [Цена продажная] from Materials where id = " + comboBoxMaterial.SelectedValue.ToString())) * Convert.ToInt32(textBoxCount.Text)), 2, MidpointRounding.AwayFromZero) + "', @date)," +
+                    " (" + (Convert.ToInt32(maxValT) + 2) + ", " + (Convert.ToInt32(maxValue) + 1) + ", (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '91'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '91'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '91'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '91'), (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '10'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '10'), " + Convert.ToInt32(textBoxCount.Text) + ", '" + Math.Round((Convert.ToDecimal(selectValue(ConnectionString, "select Цена from Materials where id = " + comboBoxMaterial.SelectedValue.ToString())) * Convert.ToInt32(textBoxCount.Text)), 2, MidpointRounding.AwayFromZero) + "', @date)," +
+                    " (" + (Convert.ToInt32(maxValT) + 3) + ", " + (Convert.ToInt32(maxValue) + 1) + ", (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '91'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '91'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '91'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '91'), (Select [Номер счета] from ChartOfAccounts where [Номер счета] = '68'), (Select Субконто1 from ChartOfAccounts where [Номер счета] = '68'), (Select Субконто2 from ChartOfAccounts where [Номер счета] = '68'), (Select Субконто3 from ChartOfAccounts where [Номер счета] = '68'), " + Convert.ToInt32(textBoxCount.Text) + ", '" + Math.Round(taxes, 2, MidpointRounding.AwayFromZero) + "', @date)";
+
 
                 ExecuteQuery(txtSQLQuery);
 
-                selectCommand = "select * from MaterialImplementation";
+                selectCommand = "select MI.id, (select ФИО from MOL where MOL.id=MI.'Id МОЛа') as МОЛ, (select Наименование from Materials as M where M.id = MI.'Id материала') as Материал, (select Наименование from Storages as S where S.id = MI.'Id склада') as Склад, (select ФИО from Buyer as B where B.id = MI.'Id покупателя') as Покупатель, Количество, Сумма, [Дата операции] from MaterialImplementation as MI";
                 refreshForm(ConnectionString, selectCommand);
                 textBoxCount.Clear();
                 textBoxSum.Text = "";
@@ -199,7 +211,7 @@ namespace MutriskovTiPEIS
                 try
                 {
                     int count = Convert.ToInt32(textBoxCount.Text);
-                    string selectCmd = "select Цена from Materials where Id=" + Convert.ToInt32(comboBoxMaterial.SelectedValue);
+                    string selectCmd = "select [Цена продажная] from Materials where Id=" + Convert.ToInt32(comboBoxMaterial.SelectedValue);
                     var price = selectValue(ConnectionString, selectCmd);
                     textBoxSum.Text = Math.Round((count * Convert.ToDecimal(price)), 2, MidpointRounding.AwayFromZero).ToString();
                 }
@@ -223,7 +235,7 @@ namespace MutriskovTiPEIS
             changeValue(ConnectionString, selectCommand);
             selectCommand = "delete from Transactions where [id операции реализации]=" + valueId;
             changeValue(ConnectionString, selectCommand);
-            selectCommand = "select * from MaterialImplementation";
+            selectCommand = "select MI.id, (select ФИО from MOL where MOL.id=MI.'Id МОЛа') as МОЛ, (select Наименование from Materials as M where M.id = MI.'Id материала') as Материал, (select Наименование from Storages as S where S.id = MI.'Id склада') as Склад, (select ФИО from Buyer as B where B.id = MI.'Id покупателя') as Покупатель, Количество, Сумма, [Дата операции] from MaterialImplementation as MI";
             refreshForm(ConnectionString, selectCommand);
             textBoxCount.Text = "";
             textBoxSum.Text = "";
@@ -262,7 +274,7 @@ namespace MutriskovTiPEIS
                 changeValue(ConnectionString, selectCommand);
                 selectCommand = "update Transactions set Количество=" + changeCount + ", Сумма='" + changeSum + "', Дата= @date where [id операции реализации]=" + valueId;
                 changeValue(ConnectionString, selectCommand);
-                selectCommand = "select * from MaterialImplementation";
+                selectCommand = "select MI.id, (select ФИО from MOL where MOL.id=MI.'Id МОЛа') as МОЛ, (select Наименование from Materials as M where M.id = MI.'Id материала') as Материал, (select Наименование from Storages as S where S.id = MI.'Id склада') as Склад, (select ФИО from Buyer as B where B.id = MI.'Id покупателя') as Покупатель, Количество, Сумма, [Дата операции] from MaterialImplementation as MI";
                 refreshForm(ConnectionString, selectCommand);
                 textBoxCount.Text = "";
                 textBoxSum.Text = "";
@@ -280,10 +292,15 @@ namespace MutriskovTiPEIS
         private void dataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
-            int MOLId = Convert.ToInt32(dataGridView[1, CurrentRow].Value);
-            int materialId = Convert.ToInt32(dataGridView[2, CurrentRow].Value);
-            int storageId = Convert.ToInt32(dataGridView[3, CurrentRow].Value);
-            int buyerId = Convert.ToInt32(dataGridView[4, CurrentRow].Value);
+            int id = Convert.ToInt32(dataGridView[0, CurrentRow].Value);
+            string selectCmd = "select [Id МОЛа] from MaterialImplementation where id=" + id;
+            int MOLId = Convert.ToInt32(selectValue(ConnectionString, selectCmd));
+            selectCmd = "select [Id материала] from MaterialImplementation where id=" + id;
+            int materialId = Convert.ToInt32(selectValue(ConnectionString, selectCmd));
+            selectCmd = "select [Id склада] from MaterialImplementation where id=" + id;
+            int storageId = Convert.ToInt32(selectValue(ConnectionString, selectCmd));
+            selectCmd = "select [Id покупателя] from MaterialImplementation where id=" + id;
+            int buyerId = Convert.ToInt32(selectValue(ConnectionString, selectCmd));
             string count = dataGridView[5, CurrentRow].Value.ToString();
             string sum = dataGridView[6, CurrentRow].Value.ToString();
             var date = Convert.ToDateTime(dataGridView[7, CurrentRow].Value);
@@ -307,6 +324,18 @@ namespace MutriskovTiPEIS
             int id = Convert.ToInt32(dataGridView[0, CurrentRow].Value);
             var form = new FormTransactionsOfMI(id);
             form.Show();
+        }
+
+        private void comboBoxMaterial_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if(comboBoxStorage.SelectedValue != null && Convert.ToInt32(comboBoxStorage.SelectedValue) == Convert.ToInt32(selectValue(ConnectionString, "select [id склада] from Materials where id=" + comboBoxMaterial.SelectedValue)))
+            {
+                labelRemains.Text = selectValue(ConnectionString, "select Количество from Materials where id=" + Convert.ToInt32(comboBoxMaterial.SelectedValue)).ToString();
+            }
+            else
+            {
+                labelRemains.Text = "0";
+            }
         }
     }
 }

@@ -32,24 +32,33 @@ namespace MutriskovTiPEIS
                 var maxValue = selectValue(ConnectionString, selectCommand);
                 if (Convert.ToString(maxValue) == "")
                     maxValue = 0;
-                if (String.IsNullOrEmpty(textBoxName.Text) || String.IsNullOrEmpty(textBoxPrice.Text))
+                if (String.IsNullOrEmpty(textBoxName.Text) || String.IsNullOrEmpty(textBoxPrice.Text) || String.IsNullOrEmpty(textBoxPrice1.Text) || String.IsNullOrEmpty(textBoxCount.Text) || comboBoxStorage.SelectedItem == null)
                 {
                     MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                if (Convert.ToDecimal(textBoxPrice.Text) < 0)
+                if (Convert.ToDecimal(textBoxPrice.Text) < 0 || Convert.ToDecimal(textBoxPrice1.Text) < 0)
                 {
                     MessageBox.Show("Цена не должна быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     textBoxPrice.Text = "";
                     return;
                 }
-                string txtSQLQuery = "insert into Materials (id, Наименование, Цена) values (" + (Convert.ToInt32(maxValue) + 1) + ", '" + textBoxName.Text + "'" + ", '" + Math.Round(Convert.ToDecimal(textBoxPrice.Text), 2, MidpointRounding.AwayFromZero) + "')";
+                if (Convert.ToInt32(textBoxCount.Text) < 0)
+                {
+                    MessageBox.Show("Количество не должно быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    textBoxPrice.Text = "";
+                    return;
+                }
+                string txtSQLQuery = "insert into Materials (id, Наименование, Цена, [Цена продажная], [Id склада], Количество) values (" + (Convert.ToInt32(maxValue) + 1) + ", '" + textBoxName.Text + "'" + ", '" + Math.Round(Convert.ToDecimal(textBoxPrice.Text), 2, MidpointRounding.AwayFromZero) + "', '" + Math.Round(Convert.ToDecimal(textBoxPrice1.Text), 2, MidpointRounding.AwayFromZero) +"', " + comboBoxStorage.SelectedValue + ", " + textBoxCount.Text + ")";
 
                 ExecuteQuery(txtSQLQuery);
                 selectCommand = "select * from Materials";
                 refreshForm(ConnectionString, selectCommand);
                 textBoxName.Text = "";
                 textBoxPrice.Text = "";
+                textBoxPrice1.Text = "";
+                textBoxCount.Text = "";
+                comboBoxStorage.SelectedItem = null;
             }
             catch (Exception ex)
             {
@@ -74,6 +83,9 @@ namespace MutriskovTiPEIS
             dataGridView.Refresh();
             textBoxName.Text = "";
             textBoxPrice.Text = "";
+            textBoxPrice1.Text = "";
+            textBoxCount.Text = "";
+            comboBoxStorage.SelectedItem = null;
         }
 
         private void FormMaterial_Load(object sender, EventArgs e)
@@ -89,10 +101,16 @@ namespace MutriskovTiPEIS
             connect.Open();
             SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(selectCmd, connect);
             DataSet ds = new DataSet();
-            dataAdapter.Fill(ds);
-            dataGridView.DataSource = ds;
-            dataGridView.DataMember = ds.Tables[0].ToString();
+            dataAdapter.Fill(ds, "Materials");
+            dataGridView.DataSource = ds.Tables["Materials"];
             dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            dataAdapter = new SQLiteDataAdapter("select * from Storages", connect);
+            dataAdapter.Fill(ds, "Storages");
+            comboBoxStorage.DataSource = ds.Tables["Storages"];
+            comboBoxStorage.DisplayMember = "Наименование";
+            comboBoxStorage.ValueMember = "id";
+            comboBoxStorage.SelectedItem = null;
             connect.Close();
         }
 
@@ -111,6 +129,9 @@ namespace MutriskovTiPEIS
             refreshForm(ConnectionString, selectCommand);
             textBoxName.Text = "";
             textBoxPrice.Text = "";
+            textBoxPrice1.Text = "";
+            textBoxCount.Text = "";
+            comboBoxStorage.SelectedItem = null;
         }
 
         private void changeValue(string conString, string selectCmd)
@@ -136,27 +157,39 @@ namespace MutriskovTiPEIS
                     MessageBox.Show("Для обновления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
-                string valueId = dataGridView[0, CurrentRow].Value.ToString();
-                string ChangeName = textBoxName.Text;
-                string ChangePrice = textBoxPrice.Text;
-                if (String.IsNullOrEmpty(textBoxName.Text) || String.IsNullOrEmpty(textBoxPrice.Text))
+                if (String.IsNullOrEmpty(textBoxName.Text) || String.IsNullOrEmpty(textBoxPrice.Text) || String.IsNullOrEmpty(textBoxPrice1.Text) || String.IsNullOrEmpty(textBoxCount.Text) || comboBoxStorage.SelectedItem == null)
                 {
                     MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                if (Convert.ToDecimal(textBoxPrice.Text) < 0)
+                if (Convert.ToDecimal(textBoxPrice.Text) < 0 || Convert.ToDecimal(textBoxPrice1.Text) < 0)
                 {
                     MessageBox.Show("Цена не должна быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     textBoxPrice.Text = "";
                     return;
                 }
-                string selectCommand = "update Materials set Наименование='" + ChangeName + "', Цена='" + Math.Round(Convert.ToDecimal(ChangePrice), 2, MidpointRounding.AwayFromZero) + "' where Id=" + valueId;
+                if (Convert.ToInt32(textBoxCount.Text) < 0)
+                {
+                    MessageBox.Show("Количество не должно быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    textBoxPrice.Text = "";
+                    return;
+                }
+                int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
+                string valueId = dataGridView[0, CurrentRow].Value.ToString();
+                string ChangeName = textBoxName.Text;
+                string ChangePrice = textBoxPrice.Text;
+                string ChangePrice1 = textBoxPrice1.Text;
+                string ChangeStorageId = comboBoxStorage.SelectedValue.ToString();
+                string ChangeCount = textBoxCount.Text;
+                string selectCommand = "update Materials set Наименование='" + ChangeName + "', Цена='" + Math.Round(Convert.ToDecimal(ChangePrice), 2, MidpointRounding.AwayFromZero) + "', [Цена продажная]='" + Math.Round(Convert.ToDecimal(ChangePrice1), 2, MidpointRounding.AwayFromZero) + "', [Id склада]=" + ChangeStorageId + ", Количество=" + ChangeCount + " where Id=" + valueId;
                 changeValue(ConnectionString, selectCommand);
                 selectCommand = "select * from Materials";
                 refreshForm(ConnectionString, selectCommand);
                 textBoxName.Text = "";
                 textBoxPrice.Text = "";
+                textBoxPrice1.Text = "";
+                textBoxCount.Text = "";
+                comboBoxStorage.SelectedItem = null;
             }
             catch (Exception ex)
             {
@@ -184,8 +217,14 @@ namespace MutriskovTiPEIS
             int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
             string nameId = dataGridView[1, CurrentRow].Value.ToString();
             var priceId = dataGridView[2, CurrentRow].Value.ToString();
+            var price1Id = dataGridView[3, CurrentRow].Value.ToString();
+            var storageId = dataGridView[4, CurrentRow].Value.ToString();
+            var count = dataGridView[5, CurrentRow].Value.ToString();
             textBoxName.Text = nameId;
             textBoxPrice.Text = priceId;
+            textBoxPrice1.Text = price1Id;
+            textBoxCount.Text = count;
+            comboBoxStorage.SelectedValue = storageId;
         }
     }
 }

@@ -48,7 +48,7 @@ namespace MutriskovTiPEIS
         {
             if(dateTimePickerFrom.Value <= dateTimePickerTo.Value)
             {
-                string selectCmd = "Select * from Transactions where Дата between '" + dateTimePickerFrom.Value.Date.ToString("yyyy-MM-dd") + "' and '" + dateTimePickerTo.Value.Date.ToString("yyyy-MM-dd") + "'";
+                string selectCmd = "Select * from Transactions where Дата between '" + dateTimePickerFrom.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + dateTimePickerTo.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'";
                 SelectTable(ConnectionString, selectCmd);
             }
             else
