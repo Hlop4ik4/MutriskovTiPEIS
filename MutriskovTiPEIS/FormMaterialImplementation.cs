@@ -324,9 +324,9 @@ namespace MutriskovTiPEIS
                 Int32.TryParse(selectValue(ConnectionString, "select sum(Количество) from Transactions where [Счет дебет]=10 and [Субконто дебет1]='" + comboBoxMaterial.SelectedValue + "' and Дата < '" + dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and [Субконто дебет3]=" + comboBoxMOL.SelectedValue).ToString(), out dt);
                 Int32.TryParse(selectValue(ConnectionString, "select sum(Количество) from Transactions where [Счет кредит]=10 and [Субконто кредит1]='" + comboBoxMaterial.SelectedValue + "' and Дата < '" + dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and [Субконто кредит3]=" + comboBoxMOL.SelectedValue).ToString(), out kt);
                 labelRemains.Text = (dt - kt).ToString();
-                StorageId = Convert.ToInt32(selectValue(ConnectionString, "select [Id склада] from Materials where id=" + comboBoxMaterial.SelectedValue));
-                textBoxStorage.Text = selectValue(ConnectionString, "select Наименование from Storages where id=" + StorageId).ToString();
             }
+            StorageId = Convert.ToInt32(selectValue(ConnectionString, "select [Id склада] from Materials where id=" + comboBoxMaterial.SelectedValue));
+                textBoxStorage.Text = selectValue(ConnectionString, "select Наименование from Storages where id=" + StorageId).ToString();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)

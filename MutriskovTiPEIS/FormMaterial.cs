@@ -49,7 +49,7 @@ namespace MutriskovTiPEIS
                     textBoxPrice.Text = "";
                     return;
                 }
-                string txtSQLQuery = "insert into Materials (id, Наименование, Цена, [Цена продажная], [Id склада], Количество) values (" + (Convert.ToInt32(maxValue) + 1) + ", '" + textBoxName.Text + "'" + ", '" + Math.Round(Convert.ToDecimal(textBoxPrice.Text), 2, MidpointRounding.AwayFromZero) + "', '" + Math.Round(Convert.ToDecimal(textBoxPrice1.Text), 2, MidpointRounding.AwayFromZero) +"', " + comboBoxStorage.SelectedValue + ", " + textBoxCount.Text + ")";
+                string txtSQLQuery = "insert into Materials (id, Наименование, Цена, [Цена продажная], [Id склада]) values (" + (Convert.ToInt32(maxValue) + 1) + ", '" + textBoxName.Text + "'" + ", '" + Math.Round(Convert.ToDecimal(textBoxPrice.Text), 2, MidpointRounding.AwayFromZero) + "', '" + Math.Round(Convert.ToDecimal(textBoxPrice1.Text), 2, MidpointRounding.AwayFromZero) +"', " + comboBoxStorage.SelectedValue + ")";
 
                 ExecuteQuery(txtSQLQuery);
                 selectCommand = "select * from Materials";
@@ -130,7 +130,6 @@ namespace MutriskovTiPEIS
             textBoxName.Text = "";
             textBoxPrice.Text = "";
             textBoxPrice1.Text = "";
-            textBoxCount.Text = "";
             comboBoxStorage.SelectedItem = null;
         }
 
@@ -180,15 +179,13 @@ namespace MutriskovTiPEIS
                 string ChangePrice = textBoxPrice.Text;
                 string ChangePrice1 = textBoxPrice1.Text;
                 string ChangeStorageId = comboBoxStorage.SelectedValue.ToString();
-                string ChangeCount = textBoxCount.Text;
-                string selectCommand = "update Materials set Наименование='" + ChangeName + "', Цена='" + Math.Round(Convert.ToDecimal(ChangePrice), 2, MidpointRounding.AwayFromZero) + "', [Цена продажная]='" + Math.Round(Convert.ToDecimal(ChangePrice1), 2, MidpointRounding.AwayFromZero) + "', [Id склада]=" + ChangeStorageId + ", Количество=" + ChangeCount + " where Id=" + valueId;
+                string selectCommand = "update Materials set Наименование='" + ChangeName + "', Цена='" + Math.Round(Convert.ToDecimal(ChangePrice), 2, MidpointRounding.AwayFromZero) + "', [Цена продажная]='" + Math.Round(Convert.ToDecimal(ChangePrice1), 2, MidpointRounding.AwayFromZero) + "', [Id склада]=" + ChangeStorageId + " where Id=" + valueId;
                 changeValue(ConnectionString, selectCommand);
                 selectCommand = "select * from Materials";
                 refreshForm(ConnectionString, selectCommand);
                 textBoxName.Text = "";
                 textBoxPrice.Text = "";
                 textBoxPrice1.Text = "";
-                textBoxCount.Text = "";
                 comboBoxStorage.SelectedItem = null;
             }
             catch (Exception ex)
@@ -219,11 +216,9 @@ namespace MutriskovTiPEIS
             var priceId = dataGridView[2, CurrentRow].Value.ToString();
             var price1Id = dataGridView[3, CurrentRow].Value.ToString();
             var storageId = dataGridView[4, CurrentRow].Value.ToString();
-            var count = dataGridView[5, CurrentRow].Value.ToString();
             textBoxName.Text = nameId;
             textBoxPrice.Text = priceId;
             textBoxPrice1.Text = price1Id;
-            textBoxCount.Text = count;
             comboBoxStorage.SelectedValue = storageId;
         }
     }
