@@ -326,7 +326,7 @@ namespace MutriskovTiPEIS
                 labelRemains.Text = (dt - kt).ToString();
             }
             StorageId = Convert.ToInt32(selectValue(ConnectionString, "select [Id склада] from Materials where id=" + comboBoxMaterial.SelectedValue));
-                textBoxStorage.Text = selectValue(ConnectionString, "select Наименование from Storages where id=" + StorageId).ToString();
+            textBoxStorage.Text = selectValue(ConnectionString, "select Наименование from Storages where id=" + StorageId).ToString();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
