@@ -101,7 +101,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(169, 20);
             this.dateTimePicker1.TabIndex = 4;
-            this.dateTimePicker1.Value = new System.DateTime(2022, 11, 24, 0, 0, 0, 0);
+            this.dateTimePicker1.Value = new System.DateTime(2022, 11, 25, 15, 41, 0, 0);
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // label2
@@ -166,6 +166,7 @@
             this.comboBoxMOL.Name = "comboBoxMOL";
             this.comboBoxMOL.Size = new System.Drawing.Size(143, 21);
             this.comboBoxMOL.TabIndex = 5;
+            this.comboBoxMOL.SelectionChangeCommitted += new System.EventHandler(this.comboBoxMOL_SelectionChangeCommitted);
             // 
             // labelBuyer
             // 

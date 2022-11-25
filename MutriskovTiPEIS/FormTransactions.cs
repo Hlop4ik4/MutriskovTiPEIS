@@ -37,9 +37,35 @@ namespace MutriskovTiPEIS
             connect.Open();
             SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(selectCmd, connect);
             DataSet ds = new DataSet();
-            dataAdapter.Fill(ds, "Transactions");
+           
+            for (int i = 0; i < Convert.ToInt32(selectValue(conString, "select count(*) from Transactions")); i++)
+            {
+                if(selectValue(conString, "select [Счет кредит] from Transactions where id=" + (i + 1)).ToString() == "60.1")
+                {
+                    dataAdapter = new SQLiteDataAdapter("select id, Дата, [id операции реализации], [Счет дебет], (select Наименование from Materials as M where M.Id = T.'Субконто дебет1') as [Субконто дебет1], (select Наименование from Storages as S where S.Id = T.'Субконто дебет2') as [Субконто дебет2], (select ФИО from MOL where MOL.Id = T.'Субконто дебет3') as [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма from Transactions as T where id = " + (i + 1), ConnectionString);
+                    dataAdapter.Fill(ds, "Transactions");
+                    //ds.Tables["Transactions"].Rows.Add(selectValue(conString, "select id, Дата, [id операции реализации], [Счет дебет], (select Наименование from Materials as M where M.Id = T.'Субконто дебет1') as [Субконто дебет1], (select Наименование from Storages as S where S.Id = T.'Субконто дебет2') as [Субконто дебет2], (select ФИО from MOL where MOL.Id = T.'Субконто дебет3') as [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма from Transactions as T where id = " + (i + 1)));
+                }
+                if(selectValue(conString, "select [Счет кредит] from Transactions where id=" + (i + 1)).ToString() == "91")
+                {
+                    dataAdapter = new SQLiteDataAdapter("select id, Дата, [id операции реализации], [Счет дебет], (select ФИО from Buyer as B where B.Id = T.'Субконто дебет1') as [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма from Transactions as T where id =" + (i + 1), ConnectionString);
+                    dataAdapter.Fill(ds, "Transactions");
+                    //ds.Tables["Transactions"].Rows.Add(selectValue(conString, "select id, Дата, [id операции реализации], [Счет дебет], (select ФИО from Buyer as B where B.Id = T.'Субконто дебет1') as [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма from Transactions as T where id =" + (i + 1)));
+                }
+                if (selectValue(conString, "select [Счет кредит] from Transactions where id=" + (i + 1)).ToString() == "10")
+                {
+                    dataAdapter = new SQLiteDataAdapter("select id, Дата, [id операции реализации], [Счет дебет], [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], (select Наименование from Materials as M where M.id = T.'Субконто кредит1') as [Субконто кредит1], (select Наименование from Storages as S where S.id = T.'Субконто кредит2') as [Субконто кредит2], (select ФИО from MOL where MOL.id = T.'Субконто кредит3') as [Субконто кредит3], Количество, Сумма from Transactions as T where id =" + (i + 1), ConnectionString);
+                    dataAdapter.Fill(ds, "Transactions");
+                    //ds.Tables["Transactions"].Rows.Add(selectValue(conString, "select id, Дата, [id операции реализации], [Счет дебет], [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], (select Наименование from Materials as M where M.id = T.'Субконто кредит1') as [Субконто кредит1], (select Наименование from Storages as S where S.id = T.'Субконто кредит2') as [Субконто кредит2], (select ФИО from MOL where MOL.id = T.'Субконто кредит3') as [Субконто кредит3], Количество, Сумма from Transactions as T where id =" + (i + 1)));
+                }
+                if (selectValue(conString, "select [Счет кредит] from Transactions where id=" + (i + 1)).ToString() == "68")
+                {
+                    dataAdapter = new SQLiteDataAdapter("select * from Transactions where id =" + (i + 1), ConnectionString);
+                    dataAdapter.Fill(ds, "Transactions");
+                    //ds.Tables["Transactions"].Rows.Add(selectValue(conString, "select * from Transactions where id =" + (i + 1)));
+                }
+            }
             dataGridView.DataSource = ds.Tables["Transactions"];
-            dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataAdapter = new SQLiteDataAdapter("select * from Materials", connect);
             dataAdapter.Fill(ds, "Materials");
             comboBoxMaterial.DataSource = ds.Tables["Materials"];
@@ -55,12 +81,49 @@ namespace MutriskovTiPEIS
             connect.Close();
         }
 
+        private void SelectTableDate(string conString, string selectCmd)
+        {
+            SQLiteConnection connect = new SQLiteConnection(conString);
+            connect.Open();
+            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(selectCmd, connect);
+            DataSet ds = new DataSet();
+
+            for (int i = 0; i < Convert.ToInt32(selectValue(conString, "select count(*) from Transactions")); i++)
+            {
+                if (selectValue(conString, "select [Счет кредит] from Transactions where id=" + (i + 1)).ToString() == "60.1")
+                {
+                    dataAdapter = new SQLiteDataAdapter("select id, Дата, [id операции реализации], [Счет дебет], (select Наименование from Materials as M where M.Id = T.'Субконто дебет1') as [Субконто дебет1], (select Наименование from Storages as S where S.Id = T.'Субконто дебет2') as [Субконто дебет2], (select ФИО from MOL where MOL.Id = T.'Субконто дебет3') as [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма from Transactions as T where id = " + (i + 1) + " and Дата between '" + dateTimePickerFrom.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + dateTimePickerTo.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'", ConnectionString);
+                    dataAdapter.Fill(ds, "Transactions");
+                    //ds.Tables["Transactions"].Rows.Add(selectValue(conString, "select id, Дата, [id операции реализации], [Счет дебет], (select Наименование from Materials as M where M.Id = T.'Субконто дебет1') as [Субконто дебет1], (select Наименование from Storages as S where S.Id = T.'Субконто дебет2') as [Субконто дебет2], (select ФИО from MOL where MOL.Id = T.'Субконто дебет3') as [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма from Transactions as T where id = " + (i + 1)));
+                }
+                if (selectValue(conString, "select [Счет кредит] from Transactions where id=" + (i + 1)).ToString() == "91")
+                {
+                    dataAdapter = new SQLiteDataAdapter("select id, Дата, [id операции реализации], [Счет дебет], (select ФИО from Buyer as B where B.Id = T.'Субконто дебет1') as [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма from Transactions as T where id =" + (i + 1) + " and Дата between '" + dateTimePickerFrom.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + dateTimePickerTo.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'", ConnectionString);
+                    dataAdapter.Fill(ds, "Transactions");
+                    //ds.Tables["Transactions"].Rows.Add(selectValue(conString, "select id, Дата, [id операции реализации], [Счет дебет], (select ФИО from Buyer as B where B.Id = T.'Субконто дебет1') as [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], [Субконто кредит1], [Субконто кредит2], [Субконто кредит3], Количество, Сумма from Transactions as T where id =" + (i + 1)));
+                }
+                if (selectValue(conString, "select [Счет кредит] from Transactions where id=" + (i + 1)).ToString() == "10")
+                {
+                    dataAdapter = new SQLiteDataAdapter("select id, Дата, [id операции реализации], [Счет дебет], [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], (select Наименование from Materials as M where M.id = T.'Субконто кредит1') as [Субконто кредит1], (select Наименование from Storages as S where S.id = T.'Субконто кредит2') as [Субконто кредит2], (select ФИО from MOL where MOL.id = T.'Субконто кредит3') as [Субконто кредит3], Количество, Сумма from Transactions as T where id =" + (i + 1) + " and Дата between '" + dateTimePickerFrom.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + dateTimePickerTo.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'", ConnectionString);
+                    dataAdapter.Fill(ds, "Transactions");
+                    //ds.Tables["Transactions"].Rows.Add(selectValue(conString, "select id, Дата, [id операции реализации], [Счет дебет], [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], (select Наименование from Materials as M where M.id = T.'Субконто кредит1') as [Субконто кредит1], (select Наименование from Storages as S where S.id = T.'Субконто кредит2') as [Субконто кредит2], (select ФИО from MOL where MOL.id = T.'Субконто кредит3') as [Субконто кредит3], Количество, Сумма from Transactions as T where id =" + (i + 1)));
+                }
+                if (selectValue(conString, "select [Счет кредит] from Transactions where id=" + (i + 1)).ToString() == "68")
+                {
+                    dataAdapter = new SQLiteDataAdapter("select * from Transactions where id =" + (i + 1) + " and Дата between '" + dateTimePickerFrom.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + dateTimePickerTo.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'", ConnectionString);
+                    dataAdapter.Fill(ds, "Transactions");
+                    //ds.Tables["Transactions"].Rows.Add(selectValue(conString, "select * from Transactions where id =" + (i + 1)));
+                }
+            }
+            dataGridView.DataSource = ds.Tables["Transactions"];
+        }
+
         private void buttonFilter_Click(object sender, EventArgs e)
         {
             if(dateTimePickerFrom.Value <= dateTimePickerTo.Value)
             {
                 string selectCmd = "Select * from Transactions where Дата between '" + dateTimePickerFrom.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + dateTimePickerTo.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'";
-                SelectTable(ConnectionString, selectCmd);
+                SelectTableDate(ConnectionString, selectCmd);
             }
             else
             {
@@ -136,6 +199,11 @@ namespace MutriskovTiPEIS
             }
             con.Close();
             return value;
+        }
+
+        private void buttonResetFilter_Click(object sender, EventArgs e)
+        {
+            SelectTable(ConnectionString, "");
         }
     }
 }

@@ -35,15 +35,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.comboBoxMaterial = new System.Windows.Forms.ComboBox();
-            this.textBoxCount = new System.Windows.Forms.TextBox();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxCount = new System.Windows.Forms.TextBox();
             this.comboBoxMOL = new System.Windows.Forms.ComboBox();
+            this.comboBoxMaterial = new System.Windows.Forms.ComboBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonResetFilter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -125,58 +126,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ввод новой записи";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Материал:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 49);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Количетсво:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(208, 49);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Дата:";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.CustomFormat = "dd.MM.yyyy HH:mm";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(250, 47);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(167, 20);
-            this.dateTimePicker1.TabIndex = 1;
-            // 
-            // comboBoxMaterial
-            // 
-            this.comboBoxMaterial.FormattingEnabled = true;
-            this.comboBoxMaterial.Location = new System.Drawing.Point(81, 19);
-            this.comboBoxMaterial.Name = "comboBoxMaterial";
-            this.comboBoxMaterial.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxMaterial.TabIndex = 2;
-            // 
-            // textBoxCount
-            // 
-            this.textBoxCount.Location = new System.Drawing.Point(81, 46);
-            this.textBoxCount.MaxLength = 100;
-            this.textBoxCount.Name = "textBoxCount";
-            this.textBoxCount.Size = new System.Drawing.Size(121, 20);
-            this.textBoxCount.TabIndex = 3;
-            // 
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(447, 39);
@@ -187,6 +136,57 @@
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
+            // textBoxCount
+            // 
+            this.textBoxCount.Location = new System.Drawing.Point(81, 46);
+            this.textBoxCount.MaxLength = 100;
+            this.textBoxCount.Name = "textBoxCount";
+            this.textBoxCount.Size = new System.Drawing.Size(121, 20);
+            this.textBoxCount.TabIndex = 3;
+            // 
+            // comboBoxMOL
+            // 
+            this.comboBoxMOL.FormattingEnabled = true;
+            this.comboBoxMOL.Location = new System.Drawing.Point(250, 19);
+            this.comboBoxMOL.Name = "comboBoxMOL";
+            this.comboBoxMOL.Size = new System.Drawing.Size(167, 21);
+            this.comboBoxMOL.TabIndex = 2;
+            // 
+            // comboBoxMaterial
+            // 
+            this.comboBoxMaterial.FormattingEnabled = true;
+            this.comboBoxMaterial.Location = new System.Drawing.Point(81, 19);
+            this.comboBoxMaterial.Name = "comboBoxMaterial";
+            this.comboBoxMaterial.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxMaterial.TabIndex = 2;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = "dd.MM.yyyy HH:mm";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(250, 47);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(167, 20);
+            this.dateTimePicker1.TabIndex = 1;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(208, 49);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(36, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Дата:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 49);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Количетсво:";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -196,13 +196,24 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "МОЛ:";
             // 
-            // comboBoxMOL
+            // label3
             // 
-            this.comboBoxMOL.FormattingEnabled = true;
-            this.comboBoxMOL.Location = new System.Drawing.Point(250, 19);
-            this.comboBoxMOL.Name = "comboBoxMOL";
-            this.comboBoxMOL.Size = new System.Drawing.Size(167, 21);
-            this.comboBoxMOL.TabIndex = 2;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Материал:";
+            // 
+            // buttonResetFilter
+            // 
+            this.buttonResetFilter.Location = new System.Drawing.Point(621, 4);
+            this.buttonResetFilter.Name = "buttonResetFilter";
+            this.buttonResetFilter.Size = new System.Drawing.Size(75, 23);
+            this.buttonResetFilter.TabIndex = 1;
+            this.buttonResetFilter.Text = "Сбросить фильтр";
+            this.buttonResetFilter.UseVisualStyleBackColor = true;
+            this.buttonResetFilter.Click += new System.EventHandler(this.buttonResetFilter_Click);
             // 
             // FormTransactions
             // 
@@ -214,6 +225,7 @@
             this.Controls.Add(this.dateTimePickerFrom);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonResetFilter);
             this.Controls.Add(this.buttonFilter);
             this.Controls.Add(this.dataGridView);
             this.Name = "FormTransactions";
@@ -245,5 +257,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxMOL;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button buttonResetFilter;
     }
 }
