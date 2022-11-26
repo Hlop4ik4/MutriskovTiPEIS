@@ -41,8 +41,6 @@
             this.textBoxPrice1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxCount = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,11 +61,11 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.Location = new System.Drawing.Point(1, 71);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(818, 450);
+            this.dataGridView.Size = new System.Drawing.Size(555, 450);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseClick);
             // 
@@ -94,7 +92,7 @@
             // textBoxName
             // 
             this.textBoxName.Location = new System.Drawing.Point(151, 7);
-            this.textBoxName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxName.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxName.MaxLength = 30;
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(132, 22);
@@ -103,7 +101,7 @@
             // textBoxPrice
             // 
             this.textBoxPrice.Location = new System.Drawing.Point(151, 39);
-            this.textBoxPrice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPrice.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPrice.MaxLength = 100;
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(132, 22);
@@ -112,8 +110,8 @@
             // buttonAdd
             // 
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAdd.Location = new System.Drawing.Point(832, 70);
-            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonAdd.Location = new System.Drawing.Point(569, 70);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(100, 28);
             this.buttonAdd.TabIndex = 3;
@@ -124,8 +122,8 @@
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDelete.Location = new System.Drawing.Point(832, 129);
-            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDelete.Location = new System.Drawing.Point(569, 129);
+            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(100, 28);
             this.buttonDelete.TabIndex = 3;
@@ -136,8 +134,8 @@
             // buttonChange
             // 
             this.buttonChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonChange.Location = new System.Drawing.Point(832, 191);
-            this.buttonChange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonChange.Location = new System.Drawing.Point(569, 191);
+            this.buttonChange.Margin = new System.Windows.Forms.Padding(4);
             this.buttonChange.Name = "buttonChange";
             this.buttonChange.Size = new System.Drawing.Size(100, 28);
             this.buttonChange.TabIndex = 3;
@@ -158,7 +156,7 @@
             // textBoxPrice1
             // 
             this.textBoxPrice1.Location = new System.Drawing.Point(426, 7);
-            this.textBoxPrice1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxPrice1.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPrice1.MaxLength = 100;
             this.textBoxPrice1.Name = "textBoxPrice1";
             this.textBoxPrice1.Size = new System.Drawing.Size(132, 22);
@@ -182,45 +180,24 @@
             this.comboBoxStorage.Size = new System.Drawing.Size(132, 24);
             this.comboBoxStorage.TabIndex = 4;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(566, 10);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 16);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Количество:";
-            // 
-            // textBoxCount
-            // 
-            this.textBoxCount.Location = new System.Drawing.Point(662, 7);
-            this.textBoxCount.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxCount.MaxLength = 100;
-            this.textBoxCount.Name = "textBoxCount";
-            this.textBoxCount.Size = new System.Drawing.Size(132, 22);
-            this.textBoxCount.TabIndex = 2;
-            // 
             // FormMaterial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(942, 522);
+            this.ClientSize = new System.Drawing.Size(679, 522);
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.buttonChange);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonAdd);
-            this.Controls.Add(this.textBoxCount);
             this.Controls.Add(this.textBoxPrice1);
             this.Controls.Add(this.textBoxPrice);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.dataGridView);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMaterial";
             this.Text = "Материалы";
             this.Load += new System.EventHandler(this.FormMaterial_Load);
@@ -244,7 +221,5 @@
         private System.Windows.Forms.TextBox textBoxPrice1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxStorage;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxCount;
     }
 }

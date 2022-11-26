@@ -32,7 +32,7 @@ namespace MutriskovTiPEIS
                 var maxValue = selectValue(ConnectionString, selectCommand);
                 if (Convert.ToString(maxValue) == "")
                     maxValue = 0;
-                if (String.IsNullOrEmpty(textBoxName.Text) || String.IsNullOrEmpty(textBoxPrice.Text) || String.IsNullOrEmpty(textBoxPrice1.Text) || String.IsNullOrEmpty(textBoxCount.Text) || comboBoxStorage.SelectedItem == null)
+                if (String.IsNullOrEmpty(textBoxName.Text) || String.IsNullOrEmpty(textBoxPrice.Text) || String.IsNullOrEmpty(textBoxPrice1.Text) || comboBoxStorage.SelectedItem == null)
                 {
                     MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -40,12 +40,6 @@ namespace MutriskovTiPEIS
                 if (Convert.ToDecimal(textBoxPrice.Text) < 0 || Convert.ToDecimal(textBoxPrice1.Text) < 0)
                 {
                     MessageBox.Show("Цена не должна быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    textBoxPrice.Text = "";
-                    return;
-                }
-                if (Convert.ToInt32(textBoxCount.Text) < 0)
-                {
-                    MessageBox.Show("Количество не должно быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     textBoxPrice.Text = "";
                     return;
                 }
@@ -57,7 +51,6 @@ namespace MutriskovTiPEIS
                 textBoxName.Text = "";
                 textBoxPrice.Text = "";
                 textBoxPrice1.Text = "";
-                textBoxCount.Text = "";
                 comboBoxStorage.SelectedItem = null;
             }
             catch (Exception ex)
@@ -84,7 +77,6 @@ namespace MutriskovTiPEIS
             textBoxName.Text = "";
             textBoxPrice.Text = "";
             textBoxPrice1.Text = "";
-            textBoxCount.Text = "";
             comboBoxStorage.SelectedItem = null;
         }
 
@@ -156,7 +148,7 @@ namespace MutriskovTiPEIS
                     MessageBox.Show("Для обновления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                if (String.IsNullOrEmpty(textBoxName.Text) || String.IsNullOrEmpty(textBoxPrice.Text) || String.IsNullOrEmpty(textBoxPrice1.Text) || String.IsNullOrEmpty(textBoxCount.Text) || comboBoxStorage.SelectedItem == null)
+                if (String.IsNullOrEmpty(textBoxName.Text) || String.IsNullOrEmpty(textBoxPrice.Text) || String.IsNullOrEmpty(textBoxPrice1.Text) || comboBoxStorage.SelectedItem == null)
                 {
                     MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -164,12 +156,6 @@ namespace MutriskovTiPEIS
                 if (Convert.ToDecimal(textBoxPrice.Text) < 0 || Convert.ToDecimal(textBoxPrice1.Text) < 0)
                 {
                     MessageBox.Show("Цена не должна быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    textBoxPrice.Text = "";
-                    return;
-                }
-                if (Convert.ToInt32(textBoxCount.Text) < 0)
-                {
-                    MessageBox.Show("Количество не должно быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     textBoxPrice.Text = "";
                     return;
                 }

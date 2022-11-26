@@ -55,7 +55,7 @@
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(1133, 87);
-            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(100, 28);
             this.buttonAdd.TabIndex = 0;
@@ -69,7 +69,7 @@
             this.dataGridView.AllowUserToDeleteRows = false;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(3, 73);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
@@ -90,7 +90,7 @@
             // textBoxCount
             // 
             this.textBoxCount.Location = new System.Drawing.Point(703, 7);
-            this.textBoxCount.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxCount.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxCount.MaxLength = 100;
             this.textBoxCount.Name = "textBoxCount";
             this.textBoxCount.Size = new System.Drawing.Size(132, 22);
@@ -102,11 +102,11 @@
             this.dateTimePicker1.CustomFormat = "dd.MM.yyyy HH:mm";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(921, 39);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(224, 22);
             this.dateTimePicker1.TabIndex = 4;
-            this.dateTimePicker1.Value = new System.DateTime(2022, 11, 26, 0, 0, 0, 0);
+            this.dateTimePicker1.Value = new System.DateTime(2022, 11, 27, 0, 49, 0, 0);
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // label2
@@ -122,7 +122,7 @@
             // textBoxSum
             // 
             this.textBoxSum.Location = new System.Drawing.Point(703, 39);
-            this.textBoxSum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxSum.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxSum.Name = "textBoxSum";
             this.textBoxSum.ReadOnly = true;
             this.textBoxSum.Size = new System.Drawing.Size(132, 22);
@@ -131,7 +131,7 @@
             // buttonDelete
             // 
             this.buttonDelete.Location = new System.Drawing.Point(1133, 137);
-            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(100, 28);
             this.buttonDelete.TabIndex = 0;
@@ -142,7 +142,7 @@
             // buttonChange
             // 
             this.buttonChange.Location = new System.Drawing.Point(1133, 190);
-            this.buttonChange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonChange.Margin = new System.Windows.Forms.Padding(4);
             this.buttonChange.Name = "buttonChange";
             this.buttonChange.Size = new System.Drawing.Size(100, 28);
             this.buttonChange.TabIndex = 0;
@@ -174,7 +174,7 @@
             // 
             this.comboBoxMOL.FormattingEnabled = true;
             this.comboBoxMOL.Location = new System.Drawing.Point(404, 39);
-            this.comboBoxMOL.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxMOL.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxMOL.Name = "comboBoxMOL";
             this.comboBoxMOL.Size = new System.Drawing.Size(189, 24);
             this.comboBoxMOL.TabIndex = 5;
@@ -194,7 +194,7 @@
             // 
             this.comboBoxBuyer.FormattingEnabled = true;
             this.comboBoxBuyer.Location = new System.Drawing.Point(404, 7);
-            this.comboBoxBuyer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxBuyer.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxBuyer.Name = "comboBoxBuyer";
             this.comboBoxBuyer.Size = new System.Drawing.Size(189, 24);
             this.comboBoxBuyer.TabIndex = 5;
@@ -223,7 +223,7 @@
             // 
             this.comboBoxMaterial.FormattingEnabled = true;
             this.comboBoxMaterial.Location = new System.Drawing.Point(104, 7);
-            this.comboBoxMaterial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxMaterial.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxMaterial.Name = "comboBoxMaterial";
             this.comboBoxMaterial.Size = new System.Drawing.Size(189, 24);
             this.comboBoxMaterial.TabIndex = 5;
@@ -232,7 +232,7 @@
             // buttonTransactions
             // 
             this.buttonTransactions.Location = new System.Drawing.Point(1148, 238);
-            this.buttonTransactions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonTransactions.Margin = new System.Windows.Forms.Padding(4);
             this.buttonTransactions.Name = "buttonTransactions";
             this.buttonTransactions.Size = new System.Drawing.Size(115, 53);
             this.buttonTransactions.TabIndex = 0;
@@ -262,7 +262,7 @@
             // textBoxStorage
             // 
             this.textBoxStorage.Location = new System.Drawing.Point(104, 39);
-            this.textBoxStorage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxStorage.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxStorage.Name = "textBoxStorage";
             this.textBoxStorage.ReadOnly = true;
             this.textBoxStorage.Size = new System.Drawing.Size(189, 22);
@@ -294,7 +294,7 @@
             this.Controls.Add(this.buttonChange);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonAdd);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMaterialImplementation";
             this.Text = "Реализация материалов";
             this.Load += new System.EventHandler(this.FormMaterialImplementation_Load);
