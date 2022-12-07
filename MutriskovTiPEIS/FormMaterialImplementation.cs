@@ -28,7 +28,7 @@ namespace MutriskovTiPEIS
         private void FormMaterialImplementation_Load(object sender, EventArgs e)
         {
             ConnectionString = @"Data Source=" + sPath + ";New=False;Version=3";
-            string selectCommand = "select MI.id, (select ФИО from MOL where MOL.id=MI.'Id МОЛа') as МОЛ, (select Наименование from Materials as M where M.id = MI.'Id материала') as Материал, (select Наименование from Storages as S where S.id = MI.'Id склада') as Склад, (select ФИО from Buyer as B where B.id = MI.'Id покупателя') as Покупатель, Количество, Сумма, [Дата операции] from MaterialImplementation as MI";
+            string selectCommand = "select * from MaterialsImplementationView";
             SelectTable(ConnectionString, selectCommand);
         }
 
@@ -166,7 +166,7 @@ namespace MutriskovTiPEIS
 
                 ExecuteQuery(txtSQLQuery);
 
-                selectCommand = "select MI.id, (select ФИО from MOL where MOL.id=MI.'Id МОЛа') as МОЛ, (select Наименование from Materials as M where M.id = MI.'Id материала') as Материал, (select Наименование from Storages as S where S.id = MI.'Id склада') as Склад, (select ФИО from Buyer as B where B.id = MI.'Id покупателя') as Покупатель, Количество, Сумма, [Дата операции] from MaterialImplementation as MI";
+                selectCommand = "select * from MaterialsImplementationView";
                 refreshForm(ConnectionString, selectCommand);
                 textBoxCount.Clear();
                 textBoxSum.Text = "";
@@ -224,7 +224,7 @@ namespace MutriskovTiPEIS
             changeValue(ConnectionString, selectCommand);
             selectCommand = "delete from Transactions where [id операции реализации]=" + valueId;
             changeValue(ConnectionString, selectCommand);
-            selectCommand = "select MI.id, (select ФИО from MOL where MOL.id=MI.'Id МОЛа') as МОЛ, (select Наименование from Materials as M where M.id = MI.'Id материала') as Материал, (select Наименование from Storages as S where S.id = MI.'Id склада') as Склад, (select ФИО from Buyer as B where B.id = MI.'Id покупателя') as Покупатель, Количество, Сумма, [Дата операции] from MaterialImplementation as MI";
+            selectCommand = "select * from MaterialsImplementationView";
             refreshForm(ConnectionString, selectCommand);
             textBoxCount.Text = "";
             textBoxSum.Text = "";
@@ -263,7 +263,7 @@ namespace MutriskovTiPEIS
                 changeValue(ConnectionString, selectCommand);
                 selectCommand = "update Transactions set Количество=" + changeCount + ", Сумма='" + changeSum + "', Дата= @date where [id операции реализации]=" + valueId;
                 changeValue(ConnectionString, selectCommand);
-                selectCommand = "select MI.id, (select ФИО from MOL where MOL.id=MI.'Id МОЛа') as МОЛ, (select Наименование from Materials as M where M.id = MI.'Id материала') as Материал, (select Наименование from Storages as S where S.id = MI.'Id склада') as Склад, (select ФИО from Buyer as B where B.id = MI.'Id покупателя') as Покупатель, Количество, Сумма, [Дата операции] from MaterialImplementation as MI";
+                selectCommand = "select * from MaterialsImplementationView";
                 refreshForm(ConnectionString, selectCommand);
                 textBoxCount.Text = "";
                 textBoxSum.Text = "";

@@ -27,7 +27,7 @@ namespace MutriskovTiPEIS
         {
             if (dateTimePickerFrom.Value <= dateTimePickerTo.Value)
             {
-                string selectCmd = "select [Субконто дебет1] as [id покупателя], (select ФИО from Buyer as B where B.id=T.'Субконто дебет1') as ФИО, (select Сумма from Transactions where id=T.id) as [Сумма выручки], (select Сумма from Transactions where id=T.id + 1) as [Сумма себестоимости], (select (select Сумма from Transactions where id=T.id) - (select Сумма from Transactions where id=T.id + 1)) as [Сумма поибыли/убытка] from Transactions as T where [Счет дебет]=62 and Дата between '" + dateTimePickerFrom.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + dateTimePickerTo.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'";
+                string selectCmd = "select [Субконто дебет1] as [id покупателя], (select ФИО from Buyer as B where B.id=T.'Субконто дебет1') as ФИО, (select Сумма from Transactions where id=T.id) as [Сумма выручки], (select Сумма from Transactions where id=T.id + 1) as [Сумма себестоимости] from Transactions as T where [Счет дебет]=62 and Дата between '" + dateTimePickerFrom.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and '" + dateTimePickerTo.Value.ToString("yyyy-MM-dd HH:mm:ss") + "'";
                 SelectTable(ConnectionString, selectCmd);
             }
             else
@@ -45,7 +45,21 @@ namespace MutriskovTiPEIS
             dataAdapter.Fill(ds);
             dataGridView.DataSource = ds;
             dataGridView.DataMember = ds.Tables[0].ToString();
+            dataGridView.Columns.Add("сум", "Сумма прибыли/убыли");
+            decimal sumOfGain = 0;
+            decimal sumOfCost = 0;
+            decimal sumOfDiff = 0;
+            for(int i = 0; i < dataGridView.Rows.Count; i++)
+            {
+                dataGridView.Rows[i].Cells[dataGridView.Rows[i].Cells.Count - 1].Value = Convert.ToDecimal(dataGridView.Rows[i].Cells[dataGridView.Rows[i].Cells.Count - 3].Value) - Convert.ToDecimal(dataGridView.Rows[i].Cells[dataGridView.Rows[i].Cells.Count - 2].Value);
+                sumOfGain += Convert.ToDecimal(dataGridView.Rows[i].Cells[2].Value);
+                sumOfCost += Convert.ToDecimal(dataGridView.Rows[i].Cells[3].Value);
+                sumOfDiff += Convert.ToDecimal(dataGridView.Rows[i].Cells[4].Value);
+            }
             dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            labelCost.Text = sumOfCost.ToString();
+            labelDiff.Text = sumOfDiff.ToString();
+            labelGain.Text = sumOfGain.ToString();
             connect.Close();
         }
 

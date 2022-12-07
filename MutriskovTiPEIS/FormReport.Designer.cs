@@ -31,10 +31,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonReport = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
-            this.buttonReport = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.labelGain = new System.Windows.Forms.Label();
+            this.labelCost = new System.Windows.Forms.Label();
+            this.labelDiff = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -71,6 +77,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Создать отчет";
             // 
+            // buttonReport
+            // 
+            this.buttonReport.Location = new System.Drawing.Point(530, 25);
+            this.buttonReport.Name = "buttonReport";
+            this.buttonReport.Size = new System.Drawing.Size(144, 23);
+            this.buttonReport.TabIndex = 2;
+            this.buttonReport.Text = "Сформировать";
+            this.buttonReport.UseVisualStyleBackColor = true;
+            this.buttonReport.Click += new System.EventHandler(this.buttonReport_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -89,16 +105,6 @@
             this.dateTimePickerTo.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerTo.TabIndex = 1;
             // 
-            // buttonReport
-            // 
-            this.buttonReport.Location = new System.Drawing.Point(530, 25);
-            this.buttonReport.Name = "buttonReport";
-            this.buttonReport.Size = new System.Drawing.Size(144, 23);
-            this.buttonReport.TabIndex = 2;
-            this.buttonReport.Text = "Сформировать";
-            this.buttonReport.UseVisualStyleBackColor = true;
-            this.buttonReport.Click += new System.EventHandler(this.buttonReport_Click);
-            // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
@@ -112,14 +118,74 @@
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
             this.dataGridView.RowTemplate.Height = 24;
-            this.dataGridView.Size = new System.Drawing.Size(685, 357);
+            this.dataGridView.Size = new System.Drawing.Size(685, 265);
             this.dataGridView.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 353);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(127, 16);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Итого по выручке:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 379);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(171, 16);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Итого по себестоимости:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 405);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(173, 16);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Итого по прибыли/убыли:";
+            // 
+            // labelGain
+            // 
+            this.labelGain.AutoSize = true;
+            this.labelGain.Location = new System.Drawing.Point(145, 353);
+            this.labelGain.Name = "labelGain";
+            this.labelGain.Size = new System.Drawing.Size(7, 16);
+            this.labelGain.TabIndex = 4;
+            this.labelGain.Text = "\r\n";
+            // 
+            // labelCost
+            // 
+            this.labelCost.AutoSize = true;
+            this.labelCost.Location = new System.Drawing.Point(189, 379);
+            this.labelCost.Name = "labelCost";
+            this.labelCost.Size = new System.Drawing.Size(7, 16);
+            this.labelCost.TabIndex = 4;
+            this.labelCost.Text = "\r\n";
+            // 
+            // labelDiff
+            // 
+            this.labelDiff.AutoSize = true;
+            this.labelDiff.Location = new System.Drawing.Point(191, 405);
+            this.labelDiff.Name = "labelDiff";
+            this.labelDiff.Size = new System.Drawing.Size(7, 16);
+            this.labelDiff.TabIndex = 4;
+            this.labelDiff.Text = "\r\n";
             // 
             // FormReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 450);
+            this.ClientSize = new System.Drawing.Size(710, 461);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.labelDiff);
+            this.Controls.Add(this.labelCost);
+            this.Controls.Add(this.labelGain);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormReport";
@@ -129,6 +195,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -141,5 +208,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePickerTo;
         private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelGain;
+        private System.Windows.Forms.Label labelCost;
+        private System.Windows.Forms.Label labelDiff;
     }
 }
