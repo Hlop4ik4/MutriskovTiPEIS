@@ -18,10 +18,12 @@ namespace MutriskovTiPEIS
         private SQLiteCommand sql_cmd;
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
+        int language = 0;
 
-        public FormTransactions()
+        public FormTransactions(int language)
         {
             InitializeComponent();
+            this.language = language;
         }
 
         private void FormTransactions_Load(object sender, EventArgs e)
@@ -29,6 +31,20 @@ namespace MutriskovTiPEIS
             ConnectionString = @"Data Source=" + sPath + ";New=False;Version=3";
             string selectCommand = "Select * from Transactions";
             SelectTable(ConnectionString, selectCommand);
+            if(language == 1)
+            {
+                this.Text = "Transactions";
+                labelMOL.Text = "MRP";
+                labelMaterial.Text = "Material";
+                labelFiltTo.Text = "to";
+                labelFiltFrom.Text = "Filter from";
+                labelDate.Text = "Date";
+                labelCount.Text = "Count";
+                buttonAdd.Text = "Add";
+                buttonFilter.Text = "Filter";
+                buttonResetFilter.Text = "Reset filter";
+                groupBox1.Text = "Entering a new entry";
+            }
         }
 
         private void SelectTable(string conString, string selectCmd)
@@ -62,6 +78,21 @@ namespace MutriskovTiPEIS
                 }
             }
             dataGridView.DataSource = ds.Tables["Transactions"];
+            if (language == 1)
+            {
+                dataGridView.Columns[1].HeaderText = "Date";
+                dataGridView.Columns[2].HeaderText = "Operation id";
+                dataGridView.Columns[3].HeaderText = "Debit account";
+                dataGridView.Columns[4].HeaderText = "Debit sub-konto1";
+                dataGridView.Columns[5].HeaderText = "Debit sub-konto2";
+                dataGridView.Columns[6].HeaderText = "Debit sub-konto3";
+                dataGridView.Columns[7].HeaderText = "Credit account";
+                dataGridView.Columns[8].HeaderText = "Credit sub-konto1";
+                dataGridView.Columns[9].HeaderText = "Credit sub-konto2";
+                dataGridView.Columns[10].HeaderText = "Credit sub-konto3";
+                dataGridView.Columns[11].HeaderText = "Count";
+                dataGridView.Columns[12].HeaderText = "Sum";
+            }
             dataAdapter = new SQLiteDataAdapter("select * from Materials", connect);
             dataAdapter.Fill(ds, "Materials");
             comboBoxMaterial.DataSource = ds.Tables["Materials"];
@@ -108,6 +139,21 @@ namespace MutriskovTiPEIS
                 }
             }
             dataGridView.DataSource = ds.Tables["Transactions"];
+            if (language == 1)
+            {
+                dataGridView.Columns[1].HeaderText = "Date";
+                dataGridView.Columns[2].HeaderText = "Operation id";
+                dataGridView.Columns[3].HeaderText = "Debit account";
+                dataGridView.Columns[4].HeaderText = "Debit sub-konto1";
+                dataGridView.Columns[5].HeaderText = "Debit sub-konto2";
+                dataGridView.Columns[6].HeaderText = "Debit sub-konto3";
+                dataGridView.Columns[7].HeaderText = "Credit account";
+                dataGridView.Columns[8].HeaderText = "Credit sub-konto1";
+                dataGridView.Columns[9].HeaderText = "Credit sub-konto2";
+                dataGridView.Columns[10].HeaderText = "Credit sub-konto3";
+                dataGridView.Columns[11].HeaderText = "Count";
+                dataGridView.Columns[12].HeaderText = "Sum";
+            }
         }
 
         private void buttonFilter_Click(object sender, EventArgs e)
@@ -119,7 +165,15 @@ namespace MutriskovTiPEIS
             }
             else
             {
-                MessageBox.Show("Неверный выбор дат", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if(language == 0)
+                {
+                    MessageBox.Show("Неверный выбор дат", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Incorrect date selection", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
             }
         }
 
@@ -131,19 +185,43 @@ namespace MutriskovTiPEIS
                 maxValue = 0;
             if (comboBoxMaterial.SelectedItem == null || String.IsNullOrEmpty(textBoxCount.Text))
             {
-                MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (language == 0)
+                {
+                    MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Fill in all the fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             int count;
             if (!Int32.TryParse(textBoxCount.Text, out count))
             {
-                MessageBox.Show("Неверный формат строки 'Количество'", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if(language == 0)
+                {
+                    MessageBox.Show("Неверный формат строки 'Количество'", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Invalid format of the string 'Quantity'", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             if (count < 0)
             {
-                MessageBox.Show("Количество не должно быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (language == 0)
+                {
+                    MessageBox.Show("Количество не может быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("The quantity cannot be less than zero", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             string sum = (Convert.ToDecimal(selectValue(ConnectionString, "select Цена from Materials where id=" + Convert.ToInt32(comboBoxMaterial.SelectedValue))) * Convert.ToInt32(textBoxCount.Text)).ToString();
             string txtSQLQuery = "insert into Transactions (id, Дата, [Счет дебет], [Субконто дебет1], [Субконто дебет2], [Субконто дебет3], [Счет кредит], Количество, Сумма) values (" + (Convert.ToInt32(maxValue) + 1) + ", @date, (select [Номер счета] from ChartOfAccounts where [Номер счета]=10), " + Convert.ToInt32(comboBoxMaterial.SelectedValue) + ", (select [Id склада] from Materials where id=" + Convert.ToInt32(comboBoxMaterial.SelectedValue) + "), " + Convert.ToInt32(comboBoxMOL.SelectedValue) + ", (select [Номер счета] from ChartOfAccounts where [Номер счета]=60.1), " + textBoxCount.Text + ", '" + sum + "')";

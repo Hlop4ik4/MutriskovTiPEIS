@@ -30,9 +30,9 @@
         {
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.buttonFilter = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelFiltFrom = new System.Windows.Forms.Label();
             this.dateTimePickerFrom = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelFiltTo = new System.Windows.Forms.Label();
             this.dateTimePickerTo = new System.Windows.Forms.DateTimePicker();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonAdd = new System.Windows.Forms.Button();
@@ -40,10 +40,10 @@
             this.comboBoxMOL = new System.Windows.Forms.ComboBox();
             this.comboBoxMaterial = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelDate = new System.Windows.Forms.Label();
+            this.labelCount = new System.Windows.Forms.Label();
+            this.labelMOL = new System.Windows.Forms.Label();
+            this.labelMaterial = new System.Windows.Forms.Label();
             this.buttonResetFilter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -72,14 +72,14 @@
             this.buttonFilter.UseVisualStyleBackColor = true;
             this.buttonFilter.Click += new System.EventHandler(this.buttonFilter_Click);
             // 
-            // label1
+            // labelFiltFrom
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Фильтровать с";
+            this.labelFiltFrom.AutoSize = true;
+            this.labelFiltFrom.Location = new System.Drawing.Point(12, 9);
+            this.labelFiltFrom.Name = "labelFiltFrom";
+            this.labelFiltFrom.Size = new System.Drawing.Size(85, 13);
+            this.labelFiltFrom.TabIndex = 2;
+            this.labelFiltFrom.Text = "Фильтровать с";
             // 
             // dateTimePickerFrom
             // 
@@ -90,14 +90,14 @@
             this.dateTimePickerFrom.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerFrom.TabIndex = 3;
             // 
-            // label2
+            // labelFiltTo
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(309, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(19, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "по";
+            this.labelFiltTo.AutoSize = true;
+            this.labelFiltTo.Location = new System.Drawing.Point(309, 9);
+            this.labelFiltTo.Name = "labelFiltTo";
+            this.labelFiltTo.Size = new System.Drawing.Size(19, 13);
+            this.labelFiltTo.TabIndex = 2;
+            this.labelFiltTo.Text = "по";
             // 
             // dateTimePickerTo
             // 
@@ -115,10 +115,10 @@
             this.groupBox1.Controls.Add(this.comboBoxMOL);
             this.groupBox1.Controls.Add(this.comboBoxMaterial);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.labelDate);
+            this.groupBox1.Controls.Add(this.labelCount);
+            this.groupBox1.Controls.Add(this.labelMOL);
+            this.groupBox1.Controls.Add(this.labelMaterial);
             this.groupBox1.Location = new System.Drawing.Point(12, 29);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(562, 83);
@@ -169,41 +169,41 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(167, 20);
             this.dateTimePicker1.TabIndex = 1;
             // 
-            // label5
+            // labelDate
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(208, 49);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Дата:";
+            this.labelDate.AutoSize = true;
+            this.labelDate.Location = new System.Drawing.Point(208, 49);
+            this.labelDate.Name = "labelDate";
+            this.labelDate.Size = new System.Drawing.Size(36, 13);
+            this.labelDate.TabIndex = 0;
+            this.labelDate.Text = "Дата:";
             // 
-            // label4
+            // labelCount
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 49);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Количетсво:";
+            this.labelCount.AutoSize = true;
+            this.labelCount.Location = new System.Drawing.Point(6, 49);
+            this.labelCount.Name = "labelCount";
+            this.labelCount.Size = new System.Drawing.Size(69, 13);
+            this.labelCount.TabIndex = 0;
+            this.labelCount.Text = "Количетсво:";
             // 
-            // label6
+            // labelMOL
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(209, 22);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "МОЛ:";
+            this.labelMOL.AutoSize = true;
+            this.labelMOL.Location = new System.Drawing.Point(209, 22);
+            this.labelMOL.Name = "labelMOL";
+            this.labelMOL.Size = new System.Drawing.Size(35, 13);
+            this.labelMOL.TabIndex = 0;
+            this.labelMOL.Text = "МОЛ:";
             // 
-            // label3
+            // labelMaterial
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Материал:";
+            this.labelMaterial.AutoSize = true;
+            this.labelMaterial.Location = new System.Drawing.Point(15, 22);
+            this.labelMaterial.Name = "labelMaterial";
+            this.labelMaterial.Size = new System.Drawing.Size(60, 13);
+            this.labelMaterial.TabIndex = 0;
+            this.labelMaterial.Text = "Материал:";
             // 
             // buttonResetFilter
             // 
@@ -223,8 +223,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dateTimePickerTo);
             this.Controls.Add(this.dateTimePickerFrom);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelFiltTo);
+            this.Controls.Add(this.labelFiltFrom);
             this.Controls.Add(this.buttonResetFilter);
             this.Controls.Add(this.buttonFilter);
             this.Controls.Add(this.dataGridView);
@@ -243,20 +243,20 @@
 
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Button buttonFilter;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelFiltFrom;
         private System.Windows.Forms.DateTimePicker dateTimePickerFrom;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelFiltTo;
         private System.Windows.Forms.DateTimePicker dateTimePickerTo;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.TextBox textBoxCount;
         private System.Windows.Forms.ComboBox comboBoxMaterial;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelDate;
+        private System.Windows.Forms.Label labelCount;
+        private System.Windows.Forms.Label labelMaterial;
         private System.Windows.Forms.ComboBox comboBoxMOL;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelMOL;
         private System.Windows.Forms.Button buttonResetFilter;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MutriskovTiPEIS
 {
-    partial class FormReport
+    partial class FormReportMaterialSale
     {
         /// <summary>
         /// Required designer variable.
@@ -175,7 +175,7 @@
             this.labelDiff.TabIndex = 4;
             this.labelDiff.Text = "\r\n";
             // 
-            // FormReport
+            // FormReportMaterialSale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -188,8 +188,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.groupBox1);
-            this.Name = "FormReport";
-            this.Text = "Отчет";
+            this.Name = "FormReportMaterialSale";
+            this.Text = "Отчет по продажам";
             this.Load += new System.EventHandler(this.FormReport_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

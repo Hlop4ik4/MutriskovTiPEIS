@@ -101,11 +101,17 @@
     <Compile Include="FormMOLs.Designer.cs">
       <DependentUpon>FormMOLs.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormReport.cs">
+    <Compile Include="FormReportMaterialSale.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormReport.Designer.cs">
-      <DependentUpon>FormReport.cs</DependentUpon>
+    <Compile Include="FormReportMaterialSale.Designer.cs">
+      <DependentUpon>FormReportMaterialSale.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReportRemains.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportRemains.Designer.cs">
+      <DependentUpon>FormReportRemains.cs</DependentUpon>
     </Compile>
     <Compile Include="FormStorage.cs">
       <SubType>Form</SubType>
@@ -145,8 +151,11 @@
     <EmbeddedResource Include="FormMOLs.resx">
       <DependentUpon>FormMOLs.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormReport.resx">
-      <DependentUpon>FormReport.cs</DependentUpon>
+    <EmbeddedResource Include="FormReportMaterialSale.resx">
+      <DependentUpon>FormReportMaterialSale.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReportRemains.resx">
+      <DependentUpon>FormReportRemains.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormStorage.resx">
       <DependentUpon>FormStorage.cs</DependentUpon>

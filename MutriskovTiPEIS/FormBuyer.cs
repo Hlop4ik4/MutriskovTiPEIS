@@ -18,9 +18,11 @@ namespace MutriskovTiPEIS
         private SQLiteCommand sql_cmd;
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
-        public FormBuyer()
+        int language = 0;
+        public FormBuyer(int language)
         {
             InitializeComponent();
+            this.language = language;
         }
 
         private void FormBuyer_Load(object sender, EventArgs e)
@@ -28,6 +30,22 @@ namespace MutriskovTiPEIS
             ConnectionString = @"Data Source=" + sPath + ";New=False;Version=3";
             string selectCommand = "Select * from Buyer";
             SelectTable(ConnectionString, selectCommand);
+            if (language == 0)
+            {
+                buttonAdd.Text = "Добавить";
+                buttonChange.Text = "Изменить";
+                buttonDelete.Text = "Удалить";
+                labelName.Text = "ФИО:";
+                this.Text = "Покупатели";
+            }
+            else
+            {
+                buttonAdd.Text = "Add";
+                buttonChange.Text = "Change";
+                buttonDelete.Text = "Delete";
+                labelName.Text = "Name:";
+                this.Text = "Buyers";
+            }
         }
 
         private void SelectTable(string conString, string selectCmd)
@@ -40,6 +58,14 @@ namespace MutriskovTiPEIS
             dataGridView.DataSource = ds;
             dataGridView.DataMember = ds.Tables[0].ToString();
             dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            if (language == 1)
+            {
+                dataGridView.Columns[1].HeaderText = "Name";
+            }
+            else
+            {
+                dataGridView.Columns[1].HeaderText = "ФИО";
+            }
             connect.Close();
         }
 
@@ -51,8 +77,16 @@ namespace MutriskovTiPEIS
                 maxValue = 0;
             if (String.IsNullOrEmpty(textBoxName.Text))
             {
-                MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (language == 0)
+                {
+                    MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Fill in all the fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             string txtSQLQuery = "insert into Buyer (id, ФИО) values (" + (Convert.ToInt32(maxValue) + 1) + ", '" + textBoxName.Text + "')";
 
@@ -84,8 +118,16 @@ namespace MutriskovTiPEIS
         {
             if (dataGridView.SelectedCells.Count == 0)
             {
-                MessageBox.Show("Для удаления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (language == 0)
+                {
+                    MessageBox.Show("Для удаления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("To delete, select the item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
             string valueId = dataGridView[0, CurrentRow].Value.ToString();
@@ -114,16 +156,32 @@ namespace MutriskovTiPEIS
         {
             if (dataGridView.SelectedCells.Count == 0)
             {
-                MessageBox.Show("Для обновления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (language == 0)
+                {
+                    MessageBox.Show("Для обновления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("To update, select the item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
             string valueId = dataGridView[0, CurrentRow].Value.ToString();
             string ChangeName = textBoxName.Text;
             if (String.IsNullOrEmpty(textBoxName.Text))
             {
-                MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (language == 0)
+                {
+                    MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Fill in all the fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             string selectCommand = "update Buyer set ФИО='" + ChangeName + "' where Id=" + valueId;
             changeValue(ConnectionString, selectCommand);

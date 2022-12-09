@@ -19,9 +19,11 @@ namespace MutriskovTiPEIS
         private SQLiteCommand sql_cmd;
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
-        public FormMaterial()
+        int language = 0;
+        public FormMaterial(int language)
         {
             InitializeComponent();
+            this.language = language;
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -34,14 +36,31 @@ namespace MutriskovTiPEIS
                     maxValue = 0;
                 if (String.IsNullOrEmpty(textBoxName.Text) || String.IsNullOrEmpty(textBoxPrice.Text) || String.IsNullOrEmpty(textBoxPrice1.Text) || comboBoxStorage.SelectedItem == null)
                 {
-                    MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (language == 0)
+                    {
+                        MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fill in all the fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (Convert.ToDecimal(textBoxPrice.Text) < 0 || Convert.ToDecimal(textBoxPrice1.Text) < 0)
                 {
-                    MessageBox.Show("Цена не должна быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    textBoxPrice.Text = "";
-                    return;
+                    if(language == 0)
+                    {
+                        MessageBox.Show("Цена не должна быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        textBoxPrice.Text = "";
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The price should not be less than zero", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        textBoxPrice.Text = "";
+                        return;
+                    }
                 }
                 string txtSQLQuery = "insert into Materials (id, Наименование, Цена, [Цена продажная], [Id склада]) values (" + (Convert.ToInt32(maxValue) + 1) + ", '" + textBoxName.Text + "'" + ", '" + Math.Round(Convert.ToDecimal(textBoxPrice.Text), 2, MidpointRounding.AwayFromZero) + "', '" + Math.Round(Convert.ToDecimal(textBoxPrice1.Text), 2, MidpointRounding.AwayFromZero) +"', " + comboBoxStorage.SelectedValue + ")";
 
@@ -85,6 +104,28 @@ namespace MutriskovTiPEIS
             ConnectionString = @"Data Source=" + sPath + ";New=False;Version=3";
             string selectCommand = "Select * from Materials";
             SelectTable(ConnectionString, selectCommand);
+            if(language == 0)
+            {
+                this.Text = "Материалы";
+                labelName.Text = "Наименование:";
+                labelPrice.Text = "Цена:";
+                labelSalePrice.Text = "Цена продажная:";
+                labelStorage.Text = "Склад:";
+                buttonAdd.Text = "Добавить";
+                buttonChange.Text = "Обновить";
+                buttonDelete.Text = "Удалить";
+            }
+            else
+            {
+                this.Text = "Materials";
+                labelName.Text = "Name:";
+                labelPrice.Text = "Price:";
+                labelSalePrice.Text = "Sale price:";
+                labelStorage.Text = "Storage:";
+                buttonAdd.Text = "Add";
+                buttonChange.Text = "Change";
+                buttonDelete.Text = "Delete";
+            }
         }
 
         private void SelectTable(string conString, string selectCmd)
@@ -96,6 +137,25 @@ namespace MutriskovTiPEIS
             dataAdapter.Fill(ds, "Materials");
             dataGridView.DataSource = ds.Tables["Materials"];
             dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            string[] columns = new string[dataGridView.Columns.Count];
+            for(int i = 0; i < columns.Length; i++)
+            {
+                columns[i] = dataGridView.Columns[i].HeaderText;
+            }
+            if(language == 1)
+            {
+                dataGridView.Columns[1].HeaderText = "Name";
+                dataGridView.Columns[2].HeaderText = "Price";
+                dataGridView.Columns[3].HeaderText = "Sale price";
+                dataGridView.Columns[4].HeaderText = "Storage";
+            }
+            else
+            {
+                for(int i = 0; i < dataGridView.Columns.Count; i++)
+                {
+                    dataGridView.Columns[i].HeaderText = columns[i];
+                }
+            }
 
             dataAdapter = new SQLiteDataAdapter("select * from Storages", connect);
             dataAdapter.Fill(ds, "Storages");
@@ -110,8 +170,16 @@ namespace MutriskovTiPEIS
         {
             if(dataGridView.SelectedCells.Count == 0)
             {
-                MessageBox.Show("Для удаления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (language == 0)
+                {
+                    MessageBox.Show("Для удаления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("To delete, select the item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
             string valueId = dataGridView[0, CurrentRow].Value.ToString();
@@ -145,19 +213,44 @@ namespace MutriskovTiPEIS
             {
                 if (dataGridView.SelectedCells.Count == 0)
                 {
-                    MessageBox.Show("Для обновления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (language == 0)
+                    {
+                        MessageBox.Show("Для обновления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("To update, select the item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (String.IsNullOrEmpty(textBoxName.Text) || String.IsNullOrEmpty(textBoxPrice.Text) || String.IsNullOrEmpty(textBoxPrice1.Text) || comboBoxStorage.SelectedItem == null)
                 {
-                    MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (language == 0)
+                    {
+                        MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fill in all the fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (Convert.ToDecimal(textBoxPrice.Text) < 0 || Convert.ToDecimal(textBoxPrice1.Text) < 0)
                 {
-                    MessageBox.Show("Цена не должна быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    textBoxPrice.Text = "";
-                    return;
+                    if (language == 0)
+                    {
+                        MessageBox.Show("Цена не должна быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        textBoxPrice.Text = "";
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The price should not be less than zero", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        textBoxPrice.Text = "";
+                        return;
+                    }
                 }
                 int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
                 string valueId = dataGridView[0, CurrentRow].Value.ToString();

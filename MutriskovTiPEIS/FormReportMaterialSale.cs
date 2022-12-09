@@ -12,15 +12,17 @@ using System.IO;
 
 namespace MutriskovTiPEIS
 {
-    public partial class FormReport : Form
+    public partial class FormReportMaterialSale : Form
     {
         private SQLiteConnection sql_con;
         private SQLiteCommand sql_cmd;
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
-        public FormReport()
+        int language = 0;
+        public FormReportMaterialSale(int language)
         {
             InitializeComponent();
+            this.language = language;
         }
 
         private void buttonReport_Click(object sender, EventArgs e)
@@ -32,7 +34,14 @@ namespace MutriskovTiPEIS
             }
             else
             {
-                MessageBox.Show("Неверный выбор дат", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if(language == 0)
+                {
+                    MessageBox.Show("Неверный выбор дат", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Incorrect date selection", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -43,6 +52,7 @@ namespace MutriskovTiPEIS
             SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(selectCmd, connect);
             DataSet ds = new DataSet();
             dataAdapter.Fill(ds);
+            dataGridView.Columns.Clear();
             dataGridView.DataSource = ds;
             dataGridView.DataMember = ds.Tables[0].ToString();
             dataGridView.Columns.Add("сум", "Сумма прибыли/убыли");
@@ -57,6 +67,14 @@ namespace MutriskovTiPEIS
                 sumOfDiff += Convert.ToDecimal(dataGridView.Rows[i].Cells[4].Value);
             }
             dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            if(language == 1)
+            {
+                dataGridView.Columns[0].HeaderText = "Buyer id";
+                dataGridView.Columns[1].HeaderText = "Name";
+                dataGridView.Columns[2].HeaderText = "Gain";
+                dataGridView.Columns[3].HeaderText = "Purchase price";
+                dataGridView.Columns[4].HeaderText = "Profit/loss";
+            }
             labelCost.Text = sumOfCost.ToString();
             labelDiff.Text = sumOfDiff.ToString();
             labelGain.Text = sumOfGain.ToString();
@@ -66,6 +84,17 @@ namespace MutriskovTiPEIS
         private void FormReport_Load(object sender, EventArgs e)
         {
             ConnectionString = @"Data Source=" + sPath + ";New=False;Version=3";
+            if(language == 1)
+            {
+                this.Text = "Report material sale";
+                groupBox1.Text = "Create report";
+                label1.Text = "In date from";
+                label2.Text = "to";
+                label3.Text = "Total gain:";
+                label4.Text = "Total purchase price:";
+                label5.Text = "Total profit";
+                buttonReport.Text = "Sales report";
+            }
         }
     }
 }

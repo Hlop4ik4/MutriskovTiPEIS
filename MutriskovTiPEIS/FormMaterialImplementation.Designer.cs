@@ -30,10 +30,10 @@
         {
             this.buttonAdd = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelCount = new System.Windows.Forms.Label();
             this.textBoxCount = new System.Windows.Forms.TextBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelSum = new System.Windows.Forms.Label();
             this.textBoxSum = new System.Windows.Forms.TextBox();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonChange = new System.Windows.Forms.Button();
@@ -55,7 +55,7 @@
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(1133, 87);
-            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(100, 28);
             this.buttonAdd.TabIndex = 0;
@@ -69,7 +69,7 @@
             this.dataGridView.AllowUserToDeleteRows = false;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(3, 73);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersWidth = 51;
@@ -77,20 +77,22 @@
             this.dataGridView.TabIndex = 1;
             this.dataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseClick);
             // 
-            // label1
+            // labelCount
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(603, 11);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 16);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Количество:";
+            this.labelCount.AutoSize = true;
+            this.labelCount.Location = new System.Drawing.Point(603, 11);
+            this.labelCount.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelCount.MinimumSize = new System.Drawing.Size(88, 0);
+            this.labelCount.Name = "labelCount";
+            this.labelCount.Size = new System.Drawing.Size(88, 16);
+            this.labelCount.TabIndex = 2;
+            this.labelCount.Text = "Количество:";
+            this.labelCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxCount
             // 
             this.textBoxCount.Location = new System.Drawing.Point(703, 7);
-            this.textBoxCount.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxCount.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxCount.MaxLength = 100;
             this.textBoxCount.Name = "textBoxCount";
             this.textBoxCount.Size = new System.Drawing.Size(132, 22);
@@ -102,27 +104,29 @@
             this.dateTimePicker1.CustomFormat = "dd.MM.yyyy HH:mm";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(921, 39);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(224, 22);
             this.dateTimePicker1.TabIndex = 4;
             this.dateTimePicker1.Value = new System.DateTime(2022, 11, 27, 0, 49, 0, 0);
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
-            // label2
+            // labelSum
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(636, 43);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Сумма:";
+            this.labelSum.AutoSize = true;
+            this.labelSum.Location = new System.Drawing.Point(636, 43);
+            this.labelSum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelSum.MinimumSize = new System.Drawing.Size(53, 0);
+            this.labelSum.Name = "labelSum";
+            this.labelSum.Size = new System.Drawing.Size(53, 16);
+            this.labelSum.TabIndex = 2;
+            this.labelSum.Text = "Сумма:";
+            this.labelSum.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxSum
             // 
             this.textBoxSum.Location = new System.Drawing.Point(703, 39);
-            this.textBoxSum.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxSum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxSum.Name = "textBoxSum";
             this.textBoxSum.ReadOnly = true;
             this.textBoxSum.Size = new System.Drawing.Size(132, 22);
@@ -131,7 +135,7 @@
             // buttonDelete
             // 
             this.buttonDelete.Location = new System.Drawing.Point(1133, 137);
-            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(100, 28);
             this.buttonDelete.TabIndex = 0;
@@ -142,7 +146,7 @@
             // buttonChange
             // 
             this.buttonChange.Location = new System.Drawing.Point(1133, 190);
-            this.buttonChange.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonChange.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonChange.Name = "buttonChange";
             this.buttonChange.Size = new System.Drawing.Size(100, 28);
             this.buttonChange.TabIndex = 0;
@@ -159,22 +163,25 @@
             this.labelDate.Size = new System.Drawing.Size(42, 16);
             this.labelDate.TabIndex = 2;
             this.labelDate.Text = "Дата:";
+            this.labelDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelMOL
             // 
             this.labelMOL.AutoSize = true;
             this.labelMOL.Location = new System.Drawing.Point(349, 43);
             this.labelMOL.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelMOL.MinimumSize = new System.Drawing.Size(40, 0);
             this.labelMOL.Name = "labelMOL";
             this.labelMOL.Size = new System.Drawing.Size(40, 16);
             this.labelMOL.TabIndex = 2;
             this.labelMOL.Text = "МОЛ:";
+            this.labelMOL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // comboBoxMOL
             // 
             this.comboBoxMOL.FormattingEnabled = true;
             this.comboBoxMOL.Location = new System.Drawing.Point(404, 39);
-            this.comboBoxMOL.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxMOL.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxMOL.Name = "comboBoxMOL";
             this.comboBoxMOL.Size = new System.Drawing.Size(189, 24);
             this.comboBoxMOL.TabIndex = 5;
@@ -185,16 +192,18 @@
             this.labelBuyer.AutoSize = true;
             this.labelBuyer.Location = new System.Drawing.Point(303, 11);
             this.labelBuyer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelBuyer.MinimumSize = new System.Drawing.Size(89, 0);
             this.labelBuyer.Name = "labelBuyer";
             this.labelBuyer.Size = new System.Drawing.Size(89, 16);
             this.labelBuyer.TabIndex = 2;
             this.labelBuyer.Text = "Покупатель:";
+            this.labelBuyer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // comboBoxBuyer
             // 
             this.comboBoxBuyer.FormattingEnabled = true;
             this.comboBoxBuyer.Location = new System.Drawing.Point(404, 7);
-            this.comboBoxBuyer.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxBuyer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxBuyer.Name = "comboBoxBuyer";
             this.comboBoxBuyer.Size = new System.Drawing.Size(189, 24);
             this.comboBoxBuyer.TabIndex = 5;
@@ -204,26 +213,30 @@
             this.labelStorage.AutoSize = true;
             this.labelStorage.Location = new System.Drawing.Point(41, 43);
             this.labelStorage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelStorage.MinimumSize = new System.Drawing.Size(50, 0);
             this.labelStorage.Name = "labelStorage";
             this.labelStorage.Size = new System.Drawing.Size(50, 16);
             this.labelStorage.TabIndex = 2;
             this.labelStorage.Text = "Склад:";
+            this.labelStorage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelMaterial
             // 
             this.labelMaterial.AutoSize = true;
             this.labelMaterial.Location = new System.Drawing.Point(16, 11);
             this.labelMaterial.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelMaterial.MinimumSize = new System.Drawing.Size(76, 0);
             this.labelMaterial.Name = "labelMaterial";
             this.labelMaterial.Size = new System.Drawing.Size(76, 16);
             this.labelMaterial.TabIndex = 2;
             this.labelMaterial.Text = "Материал:";
+            this.labelMaterial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // comboBoxMaterial
             // 
             this.comboBoxMaterial.FormattingEnabled = true;
             this.comboBoxMaterial.Location = new System.Drawing.Point(104, 7);
-            this.comboBoxMaterial.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxMaterial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxMaterial.Name = "comboBoxMaterial";
             this.comboBoxMaterial.Size = new System.Drawing.Size(189, 24);
             this.comboBoxMaterial.TabIndex = 5;
@@ -232,7 +245,7 @@
             // buttonTransactions
             // 
             this.buttonTransactions.Location = new System.Drawing.Point(1148, 238);
-            this.buttonTransactions.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonTransactions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonTransactions.Name = "buttonTransactions";
             this.buttonTransactions.Size = new System.Drawing.Size(115, 53);
             this.buttonTransactions.TabIndex = 0;
@@ -249,6 +262,7 @@
             this.label3.Size = new System.Drawing.Size(64, 16);
             this.label3.TabIndex = 2;
             this.label3.Text = "Остатки:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelRemains
             // 
@@ -262,7 +276,7 @@
             // textBoxStorage
             // 
             this.textBoxStorage.Location = new System.Drawing.Point(104, 39);
-            this.textBoxStorage.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxStorage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxStorage.Name = "textBoxStorage";
             this.textBoxStorage.ReadOnly = true;
             this.textBoxStorage.Size = new System.Drawing.Size(189, 22);
@@ -280,7 +294,7 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.textBoxSum);
             this.Controls.Add(this.textBoxCount);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labelSum);
             this.Controls.Add(this.labelMOL);
             this.Controls.Add(this.labelStorage);
             this.Controls.Add(this.labelBuyer);
@@ -288,13 +302,13 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.labelDate);
             this.Controls.Add(this.labelMaterial);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelCount);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.buttonTransactions);
             this.Controls.Add(this.buttonChange);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonAdd);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormMaterialImplementation";
             this.Text = "Реализация материалов";
             this.Load += new System.EventHandler(this.FormMaterialImplementation_Load);
@@ -308,10 +322,10 @@
 
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelCount;
         private System.Windows.Forms.TextBox textBoxCount;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelSum;
         private System.Windows.Forms.TextBox textBoxSum;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonChange;

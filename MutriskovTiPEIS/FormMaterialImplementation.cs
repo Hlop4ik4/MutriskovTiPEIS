@@ -19,10 +19,12 @@ namespace MutriskovTiPEIS
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
         private int StorageId;
+        int language = 0;
 
-        public FormMaterialImplementation()
+        public FormMaterialImplementation(int language)
         {
             InitializeComponent();
+            this.language = language;
         }
 
         private void FormMaterialImplementation_Load(object sender, EventArgs e)
@@ -30,6 +32,22 @@ namespace MutriskovTiPEIS
             ConnectionString = @"Data Source=" + sPath + ";New=False;Version=3";
             string selectCommand = "select * from MaterialsImplementationView";
             SelectTable(ConnectionString, selectCommand);
+            if(language == 1) 
+            {
+                this.Text = "Material implementation";
+                labelMaterial.Text = "Material:";
+                labelBuyer.Text = "Buyer:";
+                labelDate.Text = "Date:";
+                labelMOL.Text = "MRP:";
+                label3.Text = "Remains:";
+                labelSum.Text = "Sum:";
+                labelCount.Text = "Count:";
+                labelStorage.Text = "Storage:";
+                buttonAdd.Text = "Add";
+                buttonChange.Text = "Change";
+                buttonDelete.Text = "Delete";
+                buttonTransactions.Text = "Check transactions";
+            }
         }
 
         private void SelectTable(string conString, string selectCmd)
@@ -41,6 +59,28 @@ namespace MutriskovTiPEIS
             dataAdapter.Fill(ds, "MI");
             dataGridView.DataSource = ds.Tables["MI"];
             dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            string[] columns = new string[dataGridView.Columns.Count];
+            for (int i = 0; i < columns.Length; i++)
+            {
+                columns[i] = dataGridView.Columns[i].HeaderText;
+            }
+            if (language == 1)
+            {
+                dataGridView.Columns[1].HeaderText = "MRP";
+                dataGridView.Columns[2].HeaderText = "Material";
+                dataGridView.Columns[3].HeaderText = "Storage";
+                dataGridView.Columns[4].HeaderText = "Buyer";
+                dataGridView.Columns[5].HeaderText = "Count";
+                dataGridView.Columns[6].HeaderText = "Sum";
+                dataGridView.Columns[7].HeaderText = "Date";
+            }
+            else
+            {
+                for(int i = 0; i < columns.Length; i++)
+                {
+                    dataGridView.Columns[i].HeaderText = columns[i];
+                }
+            }
             selectCmd = "Select * from Materials";
             dataAdapter = new SQLiteDataAdapter(selectCmd, connect);
             dataAdapter.Fill(ds, "Materials");
@@ -138,13 +178,29 @@ namespace MutriskovTiPEIS
                     maxValue = 0;
                 if (comboBoxBuyer.SelectedItem == null || comboBoxMaterial.SelectedItem == null || comboBoxMOL.SelectedItem == null ||  String.IsNullOrEmpty(textBoxCount.Text))
                 {
-                    MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (language == 0)
+                    {
+                        MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fill in all the fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (Convert.ToInt32(textBoxCount.Text) > Convert.ToInt32(labelRemains.Text)) 
                 {
-                    MessageBox.Show("Количество не может быть больше остатков", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if(language == 0)
+                    {
+                        MessageBox.Show("Количество не может быть больше остатков", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The quantity cannot be more than the remainder", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 string txtSQLQuery = "insert into MaterialImplementation (Id, [Id МОЛа], [Id материала], [Id склада], [Id покупателя], Количество, Сумма, [Дата операции]) values (" + (Convert.ToInt32(maxValue) + 1) + ", " + Convert.ToInt32(comboBoxMOL.SelectedValue) + ", " + Convert.ToInt32(comboBoxMaterial.SelectedValue) + ", " + StorageId + ", " + Convert.ToInt32(comboBoxBuyer.SelectedValue) + ", " + Convert.ToInt32(textBoxCount.Text) + ", '" + Convert.ToDecimal(textBoxSum.Text) + "', @date)";
 
@@ -187,8 +243,16 @@ namespace MutriskovTiPEIS
             Int32.TryParse(textBoxCount.Text, out count);
             if (count < 0)
             {
-                MessageBox.Show("Количество не должно быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (language == 0)
+                {
+                    MessageBox.Show("Количество не может быть меньше нуля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("The quantity cannot be less than zero", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             CalcSum();
         }
@@ -206,7 +270,14 @@ namespace MutriskovTiPEIS
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if(language == 0)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -215,8 +286,16 @@ namespace MutriskovTiPEIS
         {
             if (dataGridView.SelectedCells.Count == 0)
             {
-                MessageBox.Show("Для удаления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (language == 0)
+                {
+                    MessageBox.Show("Для удаления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("To delete, select the item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
             string valueId = dataGridView[0, CurrentRow].Value.ToString();
@@ -240,13 +319,29 @@ namespace MutriskovTiPEIS
             {
                 if (dataGridView.SelectedCells.Count == 0)
                 {
-                    MessageBox.Show("Для обновления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (language == 0)
+                    {
+                        MessageBox.Show("Для обновления выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("To update, select the item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (comboBoxBuyer.SelectedItem == null || comboBoxMaterial.SelectedItem == null || comboBoxMOL.SelectedItem == null ||  String.IsNullOrEmpty(textBoxCount.Text))
                 {
-                    MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (language == 0)
+                    {
+                        MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fill in all the fields", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
                 string valueId = dataGridView[0, CurrentRow].Value.ToString();
@@ -306,12 +401,20 @@ namespace MutriskovTiPEIS
         {
             if (dataGridView.SelectedCells.Count == 0)
             {
-                MessageBox.Show("Для просмотра выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if(language == 0)
+                {
+                    MessageBox.Show("Для просмотра выберите элемент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("To view, select the item", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
             int id = Convert.ToInt32(dataGridView[0, CurrentRow].Value);
-            var form = new FormTransactionsOfMI(id);
+            var form = new FormTransactionsOfMI(id, language);
             form.Show();
         }
 

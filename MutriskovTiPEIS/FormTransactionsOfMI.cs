@@ -19,11 +19,13 @@ namespace MutriskovTiPEIS
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
         private int id;
+        int language = 0;
 
-        public FormTransactionsOfMI(int id)
+        public FormTransactionsOfMI(int id, int language)
         {
             InitializeComponent();
             this.id = id;
+            this.language = language;
         }
 
         private void FormTransactions_Load(object sender, EventArgs e)
@@ -32,6 +34,10 @@ namespace MutriskovTiPEIS
             string selectCommand = "Select * from Transactions where [id операции реализации]=" + id;
             SelectTable(ConnectionString, selectCommand);
             this.Text = "Журнал проводок операции " + id;
+            if(language == 1)
+            {
+                this.Text = "Transaction log of operation " + id;
+            }
         }
 
         private void SelectTable(string conString, string selectCmd)
@@ -68,6 +74,26 @@ namespace MutriskovTiPEIS
                 }
             }
             dataGridView.DataSource = ds.Tables["Transactions"];
+            string[] columns = new string[dataGridView.Columns.Count];
+            for(int i = 0; i < columns.Length; i++)
+            {
+                columns[i] = dataGridView.Columns[i].HeaderText;
+            }
+            if(language == 1)
+            {
+                dataGridView.Columns[1].HeaderText = "Date";
+                dataGridView.Columns[2].HeaderText = "Operation id";
+                dataGridView.Columns[3].HeaderText = "Debit account";
+                dataGridView.Columns[4].HeaderText = "Debit sub-konto1";
+                dataGridView.Columns[5].HeaderText = "Debit sub-konto2";
+                dataGridView.Columns[6].HeaderText = "Debit sub-konto3";
+                dataGridView.Columns[7].HeaderText = "Credit account";
+                dataGridView.Columns[8].HeaderText = "Credit sub-konto1";
+                dataGridView.Columns[9].HeaderText = "Credit sub-konto2";
+                dataGridView.Columns[10].HeaderText = "Credit sub-konto3";
+                dataGridView.Columns[11].HeaderText = "Count";
+                dataGridView.Columns[12].HeaderText = "Sum";
+            }
             connect.Close();
         }
 
