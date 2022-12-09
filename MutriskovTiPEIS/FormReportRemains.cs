@@ -84,7 +84,8 @@ namespace MutriskovTiPEIS
                 dataGridView.Columns[2].HeaderText = "Count of remains";
                 dataGridView.Columns[3].HeaderText = "Sum of remains";
             }
-
+            labelCount.Text = sumCount.ToString();
+            labelSum.Text = sumSum.ToString();
             connect.Close();
         }
     }
