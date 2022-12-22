@@ -112,7 +112,8 @@ namespace MutriskovTiPEIS
 
         private void ReportRemainsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var form = new FormReportRemains(comboBox1.SelectedIndex);
+            form.ShowDialog();
         }
     }
 }

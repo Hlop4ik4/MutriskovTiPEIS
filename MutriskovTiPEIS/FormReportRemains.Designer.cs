@@ -51,6 +51,7 @@
             this.buttonReport.TabIndex = 0;
             this.buttonReport.Text = "Сформировать";
             this.buttonReport.UseVisualStyleBackColor = true;
+            this.buttonReport.Click += new System.EventHandler(this.buttonReport_Click);
             // 
             // dataGridView
             // 
@@ -90,10 +91,13 @@
             // 
             // dateTimePickerFrom
             // 
+            this.dateTimePickerFrom.CustomFormat = "dd.MM.yyyy HH:mm";
+            this.dateTimePickerFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerFrom.Location = new System.Drawing.Point(89, 22);
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerFrom.TabIndex = 4;
+            this.dateTimePickerFrom.Value = new System.DateTime(2022, 12, 10, 1, 54, 9, 0);
             // 
             // label2
             // 
@@ -106,10 +110,13 @@
             // 
             // dateTimePickerTo
             // 
+            this.dateTimePickerTo.CustomFormat = "dd.MM.yyyy HH:mm";
+            this.dateTimePickerTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerTo.Location = new System.Drawing.Point(324, 22);
             this.dateTimePickerTo.Name = "dateTimePickerTo";
             this.dateTimePickerTo.Size = new System.Drawing.Size(200, 22);
             this.dateTimePickerTo.TabIndex = 4;
+            this.dateTimePickerTo.Value = new System.DateTime(2022, 12, 10, 1, 54, 9, 0);
             // 
             // label3
             // 

@@ -94,6 +94,8 @@ namespace MutriskovTiPEIS
                 label4.Text = "Total purchase price:";
                 label5.Text = "Total profit";
                 buttonReport.Text = "Sales report";
+                dateTimePickerFrom.CustomFormat = "MM-dd-yyyy HH:mm:ss";
+                dateTimePickerTo.CustomFormat = "MM-dd-yyyy HH:mm:ss";
             }
         }
     }

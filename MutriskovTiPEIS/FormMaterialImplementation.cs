@@ -47,6 +47,7 @@ namespace MutriskovTiPEIS
                 buttonChange.Text = "Change";
                 buttonDelete.Text = "Delete";
                 buttonTransactions.Text = "Check transactions";
+                dateTimePicker1.CustomFormat = "MM-dd-yyyy HH:mm:ss";
             }
         }
 
@@ -149,7 +150,7 @@ namespace MutriskovTiPEIS
             sql_con = new SQLiteConnection(ConnectionString + ";Compress=True;");
             sql_cmd = sql_con.CreateCommand();
             sql_cmd.CommandText = Query;
-            sql_cmd.Parameters.Add("@date", DbType.DateTime).Value = dateTimePicker1.Value;
+            sql_cmd.Parameters.Add("@date", DbType.DateTime2).Value = dateTimePicker1.Value;
             sql_con.Open();
             sql_cmd.ExecuteNonQuery();
             sql_con.Close();

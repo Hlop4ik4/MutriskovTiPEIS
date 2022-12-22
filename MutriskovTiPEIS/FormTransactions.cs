@@ -44,6 +44,8 @@ namespace MutriskovTiPEIS
                 buttonFilter.Text = "Filter";
                 buttonResetFilter.Text = "Reset filter";
                 groupBox1.Text = "Entering a new entry";
+                dateTimePickerFrom.CustomFormat = "MM-dd-yyyy HH:mm:ss";
+                dateTimePickerTo.CustomFormat = "MM-dd-yyyy HH:mm:ss";
             }
         }
 
