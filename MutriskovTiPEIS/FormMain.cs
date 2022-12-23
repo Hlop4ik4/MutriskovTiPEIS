@@ -85,6 +85,7 @@ namespace MutriskovTiPEIS
                 this.ReportMaterialSaleToolStripMenuItem.Text = "Sales report";
                 this.ReportRemainsToolStripMenuItem.Text = "Remains report";
                 this.label1.Text = "Language select";
+                this.LogsToolStripMenuItem.Text = "Logs";
             }
             else
             {
@@ -101,6 +102,7 @@ namespace MutriskovTiPEIS
                 this.ReportMaterialSaleToolStripMenuItem.Text = "Отчет по продажам";
                 this.ReportRemainsToolStripMenuItem.Text = "Отчет по остаткам";
                 this.label1.Text = "Выбор языка";
+                this.LogsToolStripMenuItem.Text = "Логи";
             }
         }
 
@@ -113,6 +115,12 @@ namespace MutriskovTiPEIS
         private void ReportRemainsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = new FormReportRemains(comboBox1.SelectedIndex);
+            form.ShowDialog();
+        }
+
+        private void LogsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormLogs(comboBox1.SelectedIndex);
             form.ShowDialog();
         }
     }

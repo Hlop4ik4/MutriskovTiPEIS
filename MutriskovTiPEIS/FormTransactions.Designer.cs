@@ -59,7 +59,8 @@
             this.dataGridView.Location = new System.Drawing.Point(0, 118);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(939, 381);
+            this.dataGridView.RowHeadersWidth = 51;
+            this.dataGridView.Size = new System.Drawing.Size(706, 381);
             this.dataGridView.TabIndex = 0;
             // 
             // buttonFilter
@@ -182,10 +183,12 @@
             // 
             this.labelCount.AutoSize = true;
             this.labelCount.Location = new System.Drawing.Point(6, 49);
+            this.labelCount.MinimumSize = new System.Drawing.Size(69, 0);
             this.labelCount.Name = "labelCount";
             this.labelCount.Size = new System.Drawing.Size(69, 13);
             this.labelCount.TabIndex = 0;
             this.labelCount.Text = "Количетсво:";
+            this.labelCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelMOL
             // 
@@ -200,10 +203,12 @@
             // 
             this.labelMaterial.AutoSize = true;
             this.labelMaterial.Location = new System.Drawing.Point(15, 22);
+            this.labelMaterial.MinimumSize = new System.Drawing.Size(60, 0);
             this.labelMaterial.Name = "labelMaterial";
             this.labelMaterial.Size = new System.Drawing.Size(60, 13);
             this.labelMaterial.TabIndex = 0;
             this.labelMaterial.Text = "Материал:";
+            this.labelMaterial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // buttonResetFilter
             // 
@@ -219,7 +224,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(939, 498);
+            this.ClientSize = new System.Drawing.Size(706, 498);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dateTimePickerTo);
             this.Controls.Add(this.dateTimePickerFrom);
@@ -230,6 +235,7 @@
             this.Controls.Add(this.dataGridView);
             this.Name = "FormTransactions";
             this.Text = "Журнал проводок";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormTransactions_FormClosed);
             this.Load += new System.EventHandler(this.FormTransactions_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);

@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.IO;
+using NLog;
 
 namespace MutriskovTiPEIS
 {
@@ -20,6 +21,7 @@ namespace MutriskovTiPEIS
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
         int language = 0;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public FormMaterial(int language)
         {
             InitializeComponent();
@@ -66,7 +68,9 @@ namespace MutriskovTiPEIS
 
                 ExecuteQuery(txtSQLQuery);
                 selectCommand = "select * from Materials";
+                logger.Info("Добавлен новый материал, id: " + (Convert.ToInt32(maxValue) + 1));
                 refreshForm(ConnectionString, selectCommand);
+                
                 textBoxName.Text = "";
                 textBoxPrice.Text = "";
                 textBoxPrice1.Text = "";
@@ -75,6 +79,7 @@ namespace MutriskovTiPEIS
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logger.Warn("Произошла ошибка при добавлении нового материала");
             }
         }
 
@@ -186,7 +191,9 @@ namespace MutriskovTiPEIS
             string selectCommand = "delete from Materials where Id=" + valueId;
             changeValue(ConnectionString, selectCommand);
             selectCommand = "select * from Materials";
+            logger.Info("Удален материал, id: " + valueId);
             refreshForm(ConnectionString, selectCommand);
+            
             textBoxName.Text = "";
             textBoxPrice.Text = "";
             textBoxPrice1.Text = "";
@@ -261,7 +268,9 @@ namespace MutriskovTiPEIS
                 string selectCommand = "update Materials set Наименование='" + ChangeName + "', Цена='" + Math.Round(Convert.ToDecimal(ChangePrice), 2, MidpointRounding.AwayFromZero) + "', [Цена продажная]='" + Math.Round(Convert.ToDecimal(ChangePrice1), 2, MidpointRounding.AwayFromZero) + "', [Id склада]=" + ChangeStorageId + " where Id=" + valueId;
                 changeValue(ConnectionString, selectCommand);
                 selectCommand = "select * from Materials";
+                logger.Info("Изменен материал, id: " + valueId);
                 refreshForm(ConnectionString, selectCommand);
+                
                 textBoxName.Text = "";
                 textBoxPrice.Text = "";
                 textBoxPrice1.Text = "";
@@ -270,6 +279,7 @@ namespace MutriskovTiPEIS
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logger.Warn("Произошла ошибка при обновлении материала");
             }
         }
 
@@ -299,6 +309,11 @@ namespace MutriskovTiPEIS
             textBoxPrice.Text = priceId;
             textBoxPrice1.Text = price1Id;
             comboBoxStorage.SelectedValue = storageId;
+        }
+
+        private void FormMaterial_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            NLog.LogManager.Shutdown();
         }
     }
 }

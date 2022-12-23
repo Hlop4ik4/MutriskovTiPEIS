@@ -61,12 +61,13 @@
             // 
             // labelName
             // 
-            this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(12, 9);
+            this.labelName.MinimumSize = new System.Drawing.Size(86, 0);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(86, 13);
             this.labelName.TabIndex = 2;
             this.labelName.Text = "Наименование:";
+            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxName
             // 
@@ -109,6 +110,7 @@
             this.Controls.Add(this.dataGridView);
             this.Name = "FormStorage";
             this.Text = "Склад";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormStorage_FormClosed);
             this.Load += new System.EventHandler(this.FormStorage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

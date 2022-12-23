@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.IO;
+using NLog;
 
 namespace MutriskovTiPEIS
 {
@@ -19,6 +20,7 @@ namespace MutriskovTiPEIS
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
         int language = 0;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public FormTransactions(int language)
         {
@@ -231,7 +233,9 @@ namespace MutriskovTiPEIS
             ExecuteQuery(txtSQLQuery);
 
             selectCommand = "select * from Transactions";
+            logger.Info("Добавлен новый материал " + comboBoxMaterial.SelectedText + " к МОЛ " + comboBoxMOL.SelectedText + " " + dateTimePicker1.Value.ToString());
             refreshForm(ConnectionString, selectCommand);
+            
             textBoxCount.Clear();
             comboBoxMaterial.SelectedItem = null;
             comboBoxMOL.SelectedItem = null;
@@ -276,6 +280,11 @@ namespace MutriskovTiPEIS
         private void buttonResetFilter_Click(object sender, EventArgs e)
         {
             SelectTable(ConnectionString, "");
+        }
+
+        private void FormTransactions_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            NLog.LogManager.Shutdown();
         }
     }
 }

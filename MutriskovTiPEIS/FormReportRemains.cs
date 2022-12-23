@@ -34,8 +34,8 @@ namespace MutriskovTiPEIS
                 groupBox1.Text = "Create report";
                 label1.Text = "In date from";
                 label2.Text = "to";
-                label3.Text = "Total count of remains:";
-                label4.Text = "Total sum of remains:";
+                labelCountRemains.Text = "Total count of remains:";
+                labelSumRemains.Text = "Total sum of remains:";
                 buttonReport.Text = "Remains report";
                 dateTimePickerFrom.CustomFormat = "MM-dd-yyyy HH:mm:ss";
                 dateTimePickerTo.CustomFormat = "MM-dd-yyyy HH:mm:ss";
@@ -85,9 +85,15 @@ namespace MutriskovTiPEIS
                 dataGridView.Columns[1].HeaderText = "Name";
                 dataGridView.Columns[2].HeaderText = "Count of remains";
                 dataGridView.Columns[3].HeaderText = "Sum of remains";
+                labelCountRemains.Text = "Total count of remains: " + sumCount.ToString();
+                labelSumRemains.Text = "Total sum of remains: " + sumSum.ToString();
             }
-            labelCount.Text = sumCount.ToString();
-            labelSum.Text = sumSum.ToString();
+            else
+            {
+                labelCountRemains.Text = "Итого по количеству остатков: " + sumCount.ToString();
+                labelSumRemains.Text = "Итого по сумме остатков: " + sumSum.ToString();
+            }
+            
             connect.Close();
         }
     }

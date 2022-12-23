@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.IO;
+using NLog;
 
 namespace MutriskovTiPEIS
 {
@@ -19,6 +20,7 @@ namespace MutriskovTiPEIS
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
         int language = 0;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public FormStorage(int language)
         {
             InitializeComponent();
@@ -89,7 +91,9 @@ namespace MutriskovTiPEIS
             string selectCommand = "delete from Storages where Id=" + valueId;
             changeValue(ConnectionString, selectCommand);
             selectCommand = "select * from Storages";
+            logger.Info("Удален склад, id: " + valueId);
             refreshForm(ConnectionString, selectCommand);
+            
             textBoxName.Text = "";
         }
 
@@ -116,7 +120,9 @@ namespace MutriskovTiPEIS
 
             ExecuteQuery(txtSQLQuery);
             selectCommand = "select * from Storages";
+            logger.Info("Добавлен новый склад, id: " + (Convert.ToInt32(maxValue) + 1));
             refreshForm(ConnectionString, selectCommand);
+            
             textBoxName.Text = "";
         }
 
@@ -201,7 +207,9 @@ namespace MutriskovTiPEIS
             string selectCommand = "update Storages set Наименование='" + ChangeName + "' where Id=" + valueId;
             changeValue(ConnectionString, selectCommand);
             selectCommand = "select * from Storages";
+            logger.Info("Изменен склад, id: " + valueId);
             refreshForm(ConnectionString, selectCommand);
+            
             textBoxName.Text = "";
         }
 
@@ -210,6 +218,11 @@ namespace MutriskovTiPEIS
             int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
             string nameId = dataGridView[1, CurrentRow].Value.ToString();
             textBoxName.Text = nameId;
+        }
+
+        private void FormStorage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            NLog.LogManager.Shutdown();
         }
     }
 }

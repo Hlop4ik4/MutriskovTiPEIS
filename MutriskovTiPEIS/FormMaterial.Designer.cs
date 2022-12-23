@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.labelName = new System.Windows.Forms.Label();
             this.labelPrice = new System.Windows.Forms.Label();
@@ -51,15 +51,15 @@
             this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.NullValue = null;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.NullValue = null;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.Location = new System.Drawing.Point(1, 58);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
@@ -70,12 +70,13 @@
             // 
             // labelName
             // 
-            this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(21, 9);
+            this.labelName.MinimumSize = new System.Drawing.Size(86, 0);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(86, 13);
             this.labelName.TabIndex = 1;
             this.labelName.Text = "Наименование:";
+            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelPrice
             // 
@@ -137,12 +138,13 @@
             // 
             // labelSalePrice
             // 
-            this.labelSalePrice.AutoSize = true;
             this.labelSalePrice.Location = new System.Drawing.Point(218, 9);
+            this.labelSalePrice.MinimumSize = new System.Drawing.Size(95, 0);
             this.labelSalePrice.Name = "labelSalePrice";
             this.labelSalePrice.Size = new System.Drawing.Size(95, 13);
             this.labelSalePrice.TabIndex = 1;
             this.labelSalePrice.Text = "Цена продажная:";
+            this.labelSalePrice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textBoxPrice1
             // 
@@ -165,7 +167,7 @@
             // 
             this.comboBoxStorage.FormattingEnabled = true;
             this.comboBoxStorage.Location = new System.Drawing.Point(320, 32);
-            this.comboBoxStorage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxStorage.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxStorage.Name = "comboBoxStorage";
             this.comboBoxStorage.Size = new System.Drawing.Size(100, 21);
             this.comboBoxStorage.TabIndex = 4;
@@ -189,6 +191,7 @@
             this.Controls.Add(this.dataGridView);
             this.Name = "FormMaterial";
             this.Text = "Материалы";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMaterial_FormClosed);
             this.Load += new System.EventHandler(this.FormMaterial_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

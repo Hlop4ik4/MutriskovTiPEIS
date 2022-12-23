@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.IO;
+using NLog;
 
 namespace MutriskovTiPEIS
 {
@@ -20,6 +21,7 @@ namespace MutriskovTiPEIS
         private string ConnectionString;
         private int StorageId;
         int language = 0;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public FormMaterialImplementation(int language)
         {
@@ -224,7 +226,9 @@ namespace MutriskovTiPEIS
                 ExecuteQuery(txtSQLQuery);
 
                 selectCommand = "select * from MaterialsImplementationView";
+                logger.Info("Добавлена новая операция, id: " + (Convert.ToInt32(maxValue) + 1));
                 refreshForm(ConnectionString, selectCommand);
+                
                 textBoxCount.Clear();
                 textBoxSum.Text = "";
                 textBoxStorage.Text = "";
@@ -235,6 +239,7 @@ namespace MutriskovTiPEIS
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logger.Warn("Произошла ошибка при добавлении новой операции");
             }
         }
 
@@ -305,7 +310,9 @@ namespace MutriskovTiPEIS
             selectCommand = "delete from Transactions where [id операции реализации]=" + valueId;
             changeValue(ConnectionString, selectCommand);
             selectCommand = "select * from MaterialsImplementationView";
+            logger.Info("Удалена операция, id: " + valueId);
             refreshForm(ConnectionString, selectCommand);
+            
             textBoxCount.Text = "";
             textBoxSum.Text = "";
             textBoxStorage.Text = "";
@@ -360,7 +367,9 @@ namespace MutriskovTiPEIS
                 selectCommand = "update Transactions set Количество=" + changeCount + ", Сумма='" + changeSum + "', Дата= @date where [id операции реализации]=" + valueId;
                 changeValue(ConnectionString, selectCommand);
                 selectCommand = "select * from MaterialsImplementationView";
+                logger.Info("Изменена операция, id: " + valueId);
                 refreshForm(ConnectionString, selectCommand);
+                
                 textBoxCount.Text = "";
                 textBoxSum.Text = "";
                 textBoxStorage.Text = "";
@@ -371,6 +380,7 @@ namespace MutriskovTiPEIS
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logger.Warn("Произошла ошибка при обновлении операции");
             }
         }
 
@@ -455,6 +465,11 @@ namespace MutriskovTiPEIS
                 Int32.TryParse(selectValue(ConnectionString, "select sum(Количество) from Transactions where [Счет кредит]=10 and [Субконто кредит1]='" + comboBoxMaterial.SelectedValue + "' and Дата < '" + dateTimePicker1.Value.ToString("yyyy-MM-dd HH:mm:ss") + "' and [Субконто кредит3]=" + comboBoxMOL.SelectedValue).ToString(), out kt);
                 labelRemains.Text = (dt - kt).ToString();
             }
+        }
+
+        private void FormMaterialImplementation_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            NLog.LogManager.Shutdown();
         }
     }
 }

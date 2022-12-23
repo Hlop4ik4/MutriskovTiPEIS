@@ -108,6 +108,7 @@
             this.Controls.Add(this.dataGridView);
             this.Name = "FormBuyer";
             this.Text = "Покупатель";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormBuyer_FormClosed);
             this.Load += new System.EventHandler(this.FormBuyer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

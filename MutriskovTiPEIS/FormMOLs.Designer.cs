@@ -109,6 +109,7 @@
             this.Controls.Add(this.dataGridView);
             this.Name = "FormMOLs";
             this.Text = "Материально-ответственные лица";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMOLs_FormClosed);
             this.Load += new System.EventHandler(this.FormMOLs_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

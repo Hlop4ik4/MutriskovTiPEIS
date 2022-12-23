@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.IO;
+using NLog;
 
 namespace MutriskovTiPEIS
 {
@@ -19,6 +20,7 @@ namespace MutriskovTiPEIS
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
         int language = 0;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public FormBuyer(int language)
         {
             InitializeComponent();
@@ -92,7 +94,9 @@ namespace MutriskovTiPEIS
 
             ExecuteQuery(txtSQLQuery);
             selectCommand = "select * from Buyer";
+            logger.Info("Добавлен новый покупатель, id: " + (Convert.ToInt32(maxValue) + 1));
             refreshForm(ConnectionString, selectCommand);
+            
             textBoxName.Text = "";
         }
 
@@ -134,7 +138,9 @@ namespace MutriskovTiPEIS
             string selectCommand = "delete from Buyer where Id=" + valueId;
             changeValue(ConnectionString, selectCommand);
             selectCommand = "select * from Buyer";
+            logger.Info("Удален покупатель, id: " + valueId);
             refreshForm(ConnectionString, selectCommand);
+            
             textBoxName.Text = "";
         }
 
@@ -186,7 +192,9 @@ namespace MutriskovTiPEIS
             string selectCommand = "update Buyer set ФИО='" + ChangeName + "' where Id=" + valueId;
             changeValue(ConnectionString, selectCommand);
             selectCommand = "select * from Buyer";
+            logger.Info("Обновлен покупатель покупатель, id: " + valueId + ", изменено ФИО на " + ChangeName);
             refreshForm(ConnectionString, selectCommand);
+            
             textBoxName.Text = "";
         }
 
@@ -210,6 +218,11 @@ namespace MutriskovTiPEIS
             int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
             string nameId = dataGridView[1, CurrentRow].Value.ToString();
             textBoxName.Text = nameId;
+        }
+
+        private void FormBuyer_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            NLog.LogManager.Shutdown();
         }
     }
 }

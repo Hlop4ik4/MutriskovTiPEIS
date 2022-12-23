@@ -75,9 +75,9 @@ namespace MutriskovTiPEIS
                 dataGridView.Columns[3].HeaderText = "Purchase price";
                 dataGridView.Columns[4].HeaderText = "Profit/loss";
             }
-            labelCost.Text = sumOfCost.ToString();
-            labelDiff.Text = sumOfDiff.ToString();
-            labelGain.Text = sumOfGain.ToString();
+            labelPurchase.Text = "Total purchase price: " + sumOfCost.ToString();
+            labelProfitOrLoss.Text = "Total profit: " + sumOfDiff.ToString();
+            labelProfit.Text = "Total gain: " + sumOfGain.ToString();
             connect.Close();
         }
 
@@ -90,9 +90,9 @@ namespace MutriskovTiPEIS
                 groupBox1.Text = "Create report";
                 label1.Text = "In date from";
                 label2.Text = "to";
-                label3.Text = "Total gain:";
-                label4.Text = "Total purchase price:";
-                label5.Text = "Total profit";
+                labelProfit.Text = "Total gain:";
+                labelPurchase.Text = "Total purchase price:";
+                labelProfitOrLoss.Text = "Total profit";
                 buttonReport.Text = "Sales report";
                 dateTimePickerFrom.CustomFormat = "MM-dd-yyyy HH:mm:ss";
                 dateTimePickerTo.CustomFormat = "MM-dd-yyyy HH:mm:ss";
