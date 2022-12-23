@@ -20,11 +20,12 @@ namespace MutriskovTiPEIS
         private string sPath = Path.Combine(Application.StartupPath, "mydb.db");
         private string ConnectionString;
         int language = 0;
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger;
         public FormStorage(int language)
         {
             InitializeComponent();
-            this.language = language;  
+            this.language = language;
+            logger = LogManager.GetLogger("logger");
         }
 
         private void FormStorage_Load(object sender, EventArgs e)
@@ -89,9 +90,10 @@ namespace MutriskovTiPEIS
             int CurrentRow = dataGridView.SelectedCells[0].RowIndex;
             string valueId = dataGridView[0, CurrentRow].Value.ToString();
             string selectCommand = "delete from Storages where Id=" + valueId;
+            logger.Info("Удален склад, id: " + valueId);
             changeValue(ConnectionString, selectCommand);
             selectCommand = "select * from Storages";
-            logger.Info("Удален склад, id: " + valueId);
+            
             refreshForm(ConnectionString, selectCommand);
             
             textBoxName.Text = "";
@@ -117,10 +119,10 @@ namespace MutriskovTiPEIS
                 }
             }
             string txtSQLQuery = "insert into Storages (id, Наименование) values (" + (Convert.ToInt32(maxValue) + 1) + ", '" + textBoxName.Text + "')";
-
+            logger.Info("Добавлен новый склад, id: " + (Convert.ToInt32(maxValue) + 1));
             ExecuteQuery(txtSQLQuery);
             selectCommand = "select * from Storages";
-            logger.Info("Добавлен новый склад, id: " + (Convert.ToInt32(maxValue) + 1));
+            
             refreshForm(ConnectionString, selectCommand);
             
             textBoxName.Text = "";
@@ -205,9 +207,10 @@ namespace MutriskovTiPEIS
                 }
             }
             string selectCommand = "update Storages set Наименование='" + ChangeName + "' where Id=" + valueId;
+            logger.Info("Изменен склад, id: " + valueId);
             changeValue(ConnectionString, selectCommand);
             selectCommand = "select * from Storages";
-            logger.Info("Изменен склад, id: " + valueId);
+            
             refreshForm(ConnectionString, selectCommand);
             
             textBoxName.Text = "";

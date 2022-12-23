@@ -38,6 +38,8 @@
             this.labelProfit = new System.Windows.Forms.Label();
             this.labelPurchase = new System.Windows.Forms.Label();
             this.labelProfitOrLoss = new System.Windows.Forms.Label();
+            this.buttonDoc = new System.Windows.Forms.Button();
+            this.buttonXLS = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -159,11 +161,33 @@
             this.labelProfitOrLoss.TabIndex = 4;
             this.labelProfitOrLoss.Text = "Итого по прибыли/убыли:";
             // 
+            // buttonDoc
+            // 
+            this.buttonDoc.Location = new System.Drawing.Point(448, 298);
+            this.buttonDoc.Name = "buttonDoc";
+            this.buttonDoc.Size = new System.Drawing.Size(75, 23);
+            this.buttonDoc.TabIndex = 5;
+            this.buttonDoc.Text = "DOC";
+            this.buttonDoc.UseVisualStyleBackColor = true;
+            this.buttonDoc.Click += new System.EventHandler(this.buttonDoc_Click);
+            // 
+            // buttonXLS
+            // 
+            this.buttonXLS.Location = new System.Drawing.Point(448, 324);
+            this.buttonXLS.Name = "buttonXLS";
+            this.buttonXLS.Size = new System.Drawing.Size(75, 23);
+            this.buttonXLS.TabIndex = 5;
+            this.buttonXLS.Text = "XLS";
+            this.buttonXLS.UseVisualStyleBackColor = true;
+            this.buttonXLS.Click += new System.EventHandler(this.buttonXLS_Click);
+            // 
             // FormReportMaterialSale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(532, 375);
+            this.Controls.Add(this.buttonXLS);
+            this.Controls.Add(this.buttonDoc);
             this.Controls.Add(this.labelProfitOrLoss);
             this.Controls.Add(this.labelPurchase);
             this.Controls.Add(this.labelProfit);
@@ -193,5 +217,7 @@
         private System.Windows.Forms.Label labelProfit;
         private System.Windows.Forms.Label labelPurchase;
         private System.Windows.Forms.Label labelProfitOrLoss;
+        private System.Windows.Forms.Button buttonDoc;
+        private System.Windows.Forms.Button buttonXLS;
     }
 }

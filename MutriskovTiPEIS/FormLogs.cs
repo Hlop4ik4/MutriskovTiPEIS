@@ -22,7 +22,7 @@ namespace MutriskovTiPEIS
 
         private void FormLogs_Load(object sender, EventArgs e)
         {
-            if(language == 1)
+            if (language == 1)
             {
                 this.Text = "Logs";
             }
